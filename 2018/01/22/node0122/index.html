@@ -1,0 +1,339 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>《大型网站系统与java中间件实践》笔记二 | StringXy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="XY">
+    
+    <meta name="description" content="java并发编程的类、接口和方法线程池（ThreadPoolExecutor）
+与每次都创建线程相比，线程池在线程结束后进行回收操作，而不真正销毁线程，从而降低创建线程的开销。
+ScheduledThreadPoolExecutor(定时线程池)
+Executors.newCachedThreadP">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="StringXy" title="StringXy"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="StringXy">StringXy</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:stringxy.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/01/22/node0122/" title="《大型网站系统与java中间件实践》笔记二" itemprop="url">《大型网站系统与java中间件实践》笔记二</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://stringxy.github.io" title="XY">XY</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2018-01-22T02:36:40.000Z" itemprop="datePublished">2018-01-22</time>
+    更新日期:<time datetime="2018-01-22T12:31:49.324Z" itemprop="dateModified">2018-01-22</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#java并发编程的类、接口和方法"><span class="toc-number">1.</span> <span class="toc-text">java并发编程的类、接口和方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线程池（ThreadPoolExecutor）"><span class="toc-number">1.0.1.</span> <span class="toc-text">线程池（ThreadPoolExecutor）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#synchronized"><span class="toc-number">1.0.2.</span> <span class="toc-text">synchronized</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ReentrantLock"><span class="toc-number">1.0.3.</span> <span class="toc-text">ReentrantLock</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#volatile"><span class="toc-number">1.0.4.</span> <span class="toc-text">volatile</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Atomics"><span class="toc-number">1.0.5.</span> <span class="toc-text">Atomics</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CountDownLatch"><span class="toc-number">1.0.6.</span> <span class="toc-text">CountDownLatch</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CyclicBarrier（循环屏障）"><span class="toc-number">1.0.7.</span> <span class="toc-text">CyclicBarrier（循环屏障）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Semaphore"><span class="toc-number">1.0.8.</span> <span class="toc-text">Semaphore</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Exchanger"><span class="toc-number">1.0.9.</span> <span class="toc-text">Exchanger</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Future-FutureTask"><span class="toc-number">1.0.10.</span> <span class="toc-text">Future/FutureTask</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#并发容器"><span class="toc-number">1.0.11.</span> <span class="toc-text">并发容器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务框架"><span class="toc-number">2.</span> <span class="toc-text">服务框架</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#服务调用端的设计与实现"><span class="toc-number">2.0.1.</span> <span class="toc-text">服务调用端的设计与实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#远程通信"><span class="toc-number">2.0.2.</span> <span class="toc-text">远程通信</span></a></li></ol></li></ol></li></ol>
+		</div>
+		
+		<h2 id="java并发编程的类、接口和方法"><a href="#java并发编程的类、接口和方法" class="headerlink" title="java并发编程的类、接口和方法"></a>java并发编程的类、接口和方法</h2><h4 id="线程池（ThreadPoolExecutor）"><a href="#线程池（ThreadPoolExecutor）" class="headerlink" title="线程池（ThreadPoolExecutor）"></a>线程池（ThreadPoolExecutor）</h4><ol>
+<li>与每次都创建线程相比，线程池在线程结束后进行回收操作，而不真正销毁线程，从而降低创建线程的开销。</li>
+<li>ScheduledThreadPoolExecutor(定时线程池)</li>
+<li>Executors.newCachedThreadPool()该方法返回的线程池没有线程上线，可能导致过多内存占用，不建议使用。</li>
+</ol>
+<h4 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h4><ol>
+<li>无论synchronized关键字加在方法上还是对象上，如果它作用的对象是非静态的，则它取得的锁是对象</li>
+<li>如果synchronized作用的对象是一个静态方法或一个类，则它取得的锁是对类，该类所有的对象同一把锁</li>
+<li>实现同步是要很大的系统开销作为代价的，甚至可能造成死锁，所以尽量避免无谓的同步控制</li>
+</ol>
+<h4 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h4><ul>
+<li>ReentrantLock是java.util.concurrent.locks中的一个类，从jdk5开始加入。</li>
+<li>提供了tryLock方法，若锁被其他线程持有，返回false，若没有，当前线程会持有锁，返回true</li>
+<li>构造ReentrantLock对象可接受一个boolean参数，描述是否使用公平锁。</li>
+<li>提供ReentrantReadWriteLock，用于读多写少并且读不需要互斥的场景，比全部互斥性能高。<h4 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h4><ul>
+<li>保证了同一个变量在多线程中的可见性。</li>
+<li>volatile不能控制并发，synchronized保证了代码块的串行执行。</li>
+</ul>
+</li>
+</ul>
+<h4 id="Atomics"><a href="#Atomics" class="headerlink" title="Atomics"></a>Atomics</h4><ul>
+<li>在JDK5中增加了java.util.concurrent.atomic包，其中是一些以Atomic开头的类，提供了相关的原子操作</li>
+<li>性能提升的原因是内部通过JNI的方式使用了硬件支持的CAS指令<h4 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h4></li>
+<li>CountDownLatch是java.util.concurrent包中的一个类。提供当多个线程达到预期（调用countDown方法）后触发事件（等待的线程调用await方法）。</li>
+</ul>
+<h4 id="CyclicBarrier（循环屏障）"><a href="#CyclicBarrier（循环屏障）" class="headerlink" title="CyclicBarrier（循环屏障）"></a>CyclicBarrier（循环屏障）</h4><ul>
+<li>多个线程在这个屏障前等待（调用await方法），都到达后一起执行后面的动作。</li>
+<li>CountDownLatch不能循环使用，CyclicBarrier可以循环使用</li>
+</ul>
+<h4 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h4><ul>
+<li>用于管理信号量（控制并发），构造的时候传入可供管理的信号量数值。</li>
+<li>通过acquire获取信号许可，通过release归还信号许可，acquire，release的参数含义：获取/返还的信号量个数。</li>
+</ul>
+<h4 id="Exchanger"><a href="#Exchanger" class="headerlink" title="Exchanger"></a>Exchanger</h4><ul>
+<li>用于在两个线程之间进行数据交换。</li>
+</ul>
+<h4 id="Future-FutureTask"><a href="#Future-FutureTask" class="headerlink" title="Future/FutureTask"></a>Future/FutureTask</h4><ul>
+<li>Future是一个接口/FutureTask是一个具体实现类</li>
+</ul>
+<h4 id="并发容器"><a href="#并发容器" class="headerlink" title="并发容器"></a>并发容器</h4><ul>
+<li>CopyOnWrite适用于读多写少的场景，在写时重建了一次容器。</li>
+<li>Concurrent尽量保证读不加锁，修改时不影响读，并发性能比读写锁高</li>
+</ul>
+<h2 id="服务框架"><a href="#服务框架" class="headerlink" title="服务框架"></a>服务框架</h2><h4 id="服务调用端的设计与实现"><a href="#服务调用端的设计与实现" class="headerlink" title="服务调用端的设计与实现"></a>服务调用端的设计与实现</h4><p><img src="/2018/01/22/node0122/note0122/1.png" alt=""></p>
+<h4 id="远程通信"><a href="#远程通信" class="headerlink" title="远程通信"></a>远程通信</h4><ul>
+<li>调用远程服务后，服务注册查找中心提供服务者列表，并把地址缓存在调用者本地</li>
+<li>服务提供者列表有变化时服务注册查找中心发出通知，告诉调用者。</li>
+<li>为当次的调用进行集群的负载均衡（随机/轮询/权重…），除了硬件负载均衡设备，常用的有LVS，HAProxy等替代硬件等策略</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/读书笔记/">读书笔记</a>
+  </div>
+
+
+
+
+<div class="article-share" id="share">
+
+  
+<div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a class="jiathis_button_twitter">Twitter</a>
+    <a class="jiathis_button_evernote">EverNote</a>
+    <a href="http://www.jiathis.com/share?uid=1501277" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+     ralateuid:{"tsina":"1785855413"},hideMore:false}
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+2156405" charset="utf-8"></script>      
+
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2018/01/19/note0119/"  title="《大型网站系统与java中间件实践》笔记一">
+ <strong>NEXT:</strong><br/> 
+ <span>《大型网站系统与java中间件实践》笔记一
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#java并发编程的类、接口和方法"><span class="toc-number">1.</span> <span class="toc-text">java并发编程的类、接口和方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线程池（ThreadPoolExecutor）"><span class="toc-number">1.0.1.</span> <span class="toc-text">线程池（ThreadPoolExecutor）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#synchronized"><span class="toc-number">1.0.2.</span> <span class="toc-text">synchronized</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ReentrantLock"><span class="toc-number">1.0.3.</span> <span class="toc-text">ReentrantLock</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#volatile"><span class="toc-number">1.0.4.</span> <span class="toc-text">volatile</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Atomics"><span class="toc-number">1.0.5.</span> <span class="toc-text">Atomics</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CountDownLatch"><span class="toc-number">1.0.6.</span> <span class="toc-text">CountDownLatch</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CyclicBarrier（循环屏障）"><span class="toc-number">1.0.7.</span> <span class="toc-text">CyclicBarrier（循环屏障）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Semaphore"><span class="toc-number">1.0.8.</span> <span class="toc-text">Semaphore</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Exchanger"><span class="toc-number">1.0.9.</span> <span class="toc-text">Exchanger</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Future-FutureTask"><span class="toc-number">1.0.10.</span> <span class="toc-text">Future/FutureTask</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#并发容器"><span class="toc-number">1.0.11.</span> <span class="toc-text">并发容器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务框架"><span class="toc-number">2.</span> <span class="toc-text">服务框架</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#服务调用端的设计与实现"><span class="toc-number">2.0.1.</span> <span class="toc-text">服务调用端的设计与实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#远程通信"><span class="toc-number">2.0.2.</span> <span class="toc-text">远程通信</span></a></li></ol></li></ol></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/读书笔记/" title="读书笔记">读书笔记<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		<a href="http://weibo.com/xy318" target="_blank" title="weibo"></a>
+		
+		
+		
+		<a href="https://github.com/stringxy" target="_blank" title="github"></a>
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2018 
+		
+		<a href="https://stringxy.github.io" target="_blank" title="XY">XY</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>
