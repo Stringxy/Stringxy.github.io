@@ -39,7 +39,7 @@ Executors.newCachedThreadP">
 				<h1 class="site-name"><a href="/" title="StringXy">StringXy</a></h1>
 				<h2 class="blog-motto"></h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -52,7 +52,7 @@ Executors.newCachedThreadP">
 					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
 						<input type="hidden" name="q" value="site:stringxy.github.io">
 					</form>
 					
@@ -76,7 +76,7 @@ Executors.newCachedThreadP">
     </p>
   <p class="article-time">
     <time datetime="2018-01-22T02:36:40.000Z" itemprop="datePublished">2018-01-22</time>
-    更新日期:<time datetime="2018-01-22T12:31:49.324Z" itemprop="dateModified">2018-01-22</time>
+    Updated:<time datetime="2018-01-22T12:31:49.324Z" itemprop="dateModified">2018-01-22</time>
     
   </p>
 </header>
@@ -84,7 +84,7 @@ Executors.newCachedThreadP">
 		
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目錄</strong>
+			<strong class="toc-title">Contents</strong>
 		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#java并发编程的类、接口和方法"><span class="toc-number">1.</span> <span class="toc-text">java并发编程的类、接口和方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线程池（ThreadPoolExecutor）"><span class="toc-number">1.0.1.</span> <span class="toc-text">线程池（ThreadPoolExecutor）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#synchronized"><span class="toc-number">1.0.2.</span> <span class="toc-text">synchronized</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ReentrantLock"><span class="toc-number">1.0.3.</span> <span class="toc-text">ReentrantLock</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#volatile"><span class="toc-number">1.0.4.</span> <span class="toc-text">volatile</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Atomics"><span class="toc-number">1.0.5.</span> <span class="toc-text">Atomics</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CountDownLatch"><span class="toc-number">1.0.6.</span> <span class="toc-text">CountDownLatch</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CyclicBarrier（循环屏障）"><span class="toc-number">1.0.7.</span> <span class="toc-text">CyclicBarrier（循环屏障）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Semaphore"><span class="toc-number">1.0.8.</span> <span class="toc-text">Semaphore</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Exchanger"><span class="toc-number">1.0.9.</span> <span class="toc-text">Exchanger</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Future-FutureTask"><span class="toc-number">1.0.10.</span> <span class="toc-text">Future/FutureTask</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#并发容器"><span class="toc-number">1.0.11.</span> <span class="toc-text">并发容器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务框架"><span class="toc-number">2.</span> <span class="toc-text">服务框架</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#服务调用端的设计与实现"><span class="toc-number">2.0.1.</span> <span class="toc-text">服务调用端的设计与实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#远程通信"><span class="toc-number">2.0.2.</span> <span class="toc-text">远程通信</span></a></li></ol></li></ol></li></ol>
 		</div>
 		
@@ -151,27 +151,8 @@ Executors.newCachedThreadP">
 
 <div class="article-share" id="share">
 
-  
-<div class="jiathis_style">
-    <span class="jiathis_txt">分享到：</span>
-    <a class="jiathis_button_tsina">新浪微博</a>
-    <a class="jiathis_button_weixin">微信</a>
-    <a class="jiathis_button_twitter">Twitter</a>
-    <a class="jiathis_button_evernote">EverNote</a>
-    <a href="http://www.jiathis.com/share?uid=1501277" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-</div>
-<script type="text/javascript" >
-    var jiathis_config={
-    data_track_clickback:true,
-    sm:"copy,renren,cqq",
-    pic:"",
-    summary:"",
-     ralateuid:{"tsina":"1785855413"},hideMore:false}
-    
-  </script> 
-<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
-2156405" charset="utf-8"></script>      
-
+  <div data-url="https://stringxy.github.io/2018/01/22/node0122/" data-title="《大型网站系统与java中间件实践》笔记二 | StringXy" data-tsina="1785855413" class="share clearfix">
+  </div>
 
 </div>
 </footer>   	       
@@ -192,22 +173,22 @@ Executors.newCachedThreadP">
 
 	
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目錄</strong>
+  <strong class="toc-title">Contents</strong>
   <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#java并发编程的类、接口和方法"><span class="toc-number">1.</span> <span class="toc-text">java并发编程的类、接口和方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线程池（ThreadPoolExecutor）"><span class="toc-number">1.0.1.</span> <span class="toc-text">线程池（ThreadPoolExecutor）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#synchronized"><span class="toc-number">1.0.2.</span> <span class="toc-text">synchronized</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ReentrantLock"><span class="toc-number">1.0.3.</span> <span class="toc-text">ReentrantLock</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#volatile"><span class="toc-number">1.0.4.</span> <span class="toc-text">volatile</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Atomics"><span class="toc-number">1.0.5.</span> <span class="toc-text">Atomics</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CountDownLatch"><span class="toc-number">1.0.6.</span> <span class="toc-text">CountDownLatch</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CyclicBarrier（循环屏障）"><span class="toc-number">1.0.7.</span> <span class="toc-text">CyclicBarrier（循环屏障）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Semaphore"><span class="toc-number">1.0.8.</span> <span class="toc-text">Semaphore</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Exchanger"><span class="toc-number">1.0.9.</span> <span class="toc-text">Exchanger</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Future-FutureTask"><span class="toc-number">1.0.10.</span> <span class="toc-text">Future/FutureTask</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#并发容器"><span class="toc-number">1.0.11.</span> <span class="toc-text">并发容器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务框架"><span class="toc-number">2.</span> <span class="toc-text">服务框架</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#服务调用端的设计与实现"><span class="toc-number">2.0.1.</span> <span class="toc-text">服务调用端的设计与实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#远程通信"><span class="toc-number">2.0.2.</span> <span class="toc-text">远程通信</span></a></li></ol></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
 
   
 <div class="tagslist">
-	<p class="asidetitle">標簽</p>
+	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
 			<li><a href="/tags/读书笔记/" title="读书笔记">读书笔记<sup>2</sup></a></li>
@@ -217,7 +198,7 @@ Executors.newCachedThreadP">
 
 
   <div class="rsspart">
-	<a href="" target="_blank" title="rss">RSS 訂閱</a>
+	<a href="" target="_blank" title="rss">RSS</a>
 </div>
 
 </aside>
@@ -329,6 +310,34 @@ $(document).ready(function(){
 });
 </script>
 
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
 
 
 
