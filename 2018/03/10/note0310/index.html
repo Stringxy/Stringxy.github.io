@@ -4,28 +4,19 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>笔记.md | StringXy</title>
+    <title>20180310笔记 | StringXy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="XY">
     
-    <meta name="description" content="分布式存储系统故障分类
-瞬时故障
-临时故障
-永久故障
+    <meta name="description" content="淘宝技术这十年自创技术
+文件存储系统：TFS
+缓存：Tair
+服务中间件：HSF
+消息中间件：Notify
+分布式数据库：TDDL
 
-秒杀系统的应对策略
-秒杀系统独立部署
-秒杀商品页面静态化
-租借秒杀活动网络宽带
-动态生成随机下单页面URL
-
-组成计算机的5要素
-网络通信基础知识
-OSI与tcp/ip网络模型
-
-网络io实现方式
-bio方式（blocking io，阻塞的方式">
+StormStorm能做什么Storm是一个开源的分布式实时计算系统，可以简单、可靠的处理大量数据流。Storm有很多适用场景，如实时分析、在线机器学习、持续计算、分">
     
     
     
@@ -81,15 +72,15 @@ bio方式（blocking io，阻塞的方式">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2018/01/18/note0118/" title="笔记.md" itemprop="url">笔记.md</a>
+      <a href="/2018/03/10/note0310/" title="20180310笔记" itemprop="url">20180310笔记</a>
   </h1>
   <p class="article-author">By
     
       <a href="https://stringxy.github.io" title="XY">XY</a>
     </p>
   <p class="article-time">
-    <time datetime="2018-01-18T08:27:52.000Z" itemprop="datePublished">2018-01-18</time>
-    Updated:<time datetime="2018-01-18T08:34:41.546Z" itemprop="dateModified">2018-01-18</time>
+    <time datetime="2018-03-10T02:04:44.000Z" itemprop="datePublished">2018-03-10</time>
+    Updated:<time datetime="2018-03-10T08:30:52.108Z" itemprop="dateModified">2018-03-10</time>
     
   </p>
 </header>
@@ -98,64 +89,43 @@ bio方式（blocking io，阻塞的方式">
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
-		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#分布式存储系统故障分类"><span class="toc-number">1.</span> <span class="toc-text">分布式存储系统故障分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#秒杀系统的应对策略"><span class="toc-number">2.</span> <span class="toc-text">秒杀系统的应对策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组成计算机的5要素"><span class="toc-number">3.</span> <span class="toc-text">组成计算机的5要素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络通信基础知识"><span class="toc-number">4.</span> <span class="toc-text">网络通信基础知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络io实现方式"><span class="toc-number">5.</span> <span class="toc-text">网络io实现方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lvs的三种工作模式"><span class="toc-number">6.</span> <span class="toc-text">lvs的三种工作模式</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#淘宝技术这十年"><span class="toc-number">1.</span> <span class="toc-text">淘宝技术这十年</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#自创技术"><span class="toc-number">1.0.1.</span> <span class="toc-text">自创技术</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Storm"><span class="toc-number">2.</span> <span class="toc-text">Storm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Storm能做什么"><span class="toc-number">2.1.</span> <span class="toc-text">Storm能做什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Storm特性"><span class="toc-number">2.2.</span> <span class="toc-text">Storm特性</span></a></li></ol></li></ol>
 		</div>
 		
-		<p><br></p>
-<h3 id="分布式存储系统故障分类"><a href="#分布式存储系统故障分类" class="headerlink" title="分布式存储系统故障分类"></a>分布式存储系统故障分类</h3><ul>
-<li>瞬时故障</li>
-<li>临时故障</li>
-<li>永久故障</li>
+		<h2 id="淘宝技术这十年"><a href="#淘宝技术这十年" class="headerlink" title="淘宝技术这十年"></a>淘宝技术这十年</h2><h4 id="自创技术"><a href="#自创技术" class="headerlink" title="自创技术"></a>自创技术</h4><ul>
+<li>文件存储系统：TFS</li>
+<li>缓存：Tair</li>
+<li>服务中间件：HSF</li>
+<li>消息中间件：Notify</li>
+<li>分布式数据库：TDDL</li>
 </ul>
-<h3 id="秒杀系统的应对策略"><a href="#秒杀系统的应对策略" class="headerlink" title="秒杀系统的应对策略"></a>秒杀系统的应对策略</h3><ul>
-<li>秒杀系统独立部署</li>
-<li>秒杀商品页面静态化</li>
-<li>租借秒杀活动网络宽带</li>
-<li>动态生成随机下单页面URL</li>
-</ul>
-<h3 id="组成计算机的5要素"><a href="#组成计算机的5要素" class="headerlink" title="组成计算机的5要素"></a>组成计算机的5要素</h3><p><img src="/2018/01/18/note0118/笔记/1.png" alt=""></p>
-<h3 id="网络通信基础知识"><a href="#网络通信基础知识" class="headerlink" title="网络通信基础知识"></a>网络通信基础知识</h3><ul>
-<li>OSI与tcp/ip网络模型<br><img src="/2018/01/18/note0118/笔记/QQ20180118-110911@2x.png" alt="QQ20180118-110911@2x"></li>
-</ul>
-<h3 id="网络io实现方式"><a href="#网络io实现方式" class="headerlink" title="网络io实现方式"></a>网络io实现方式</h3><ul>
-<li>bio方式（blocking io，阻塞的方式实现，一个socket套接字需要使用一个现场处理）</li>
-<li>nio方式（nonblocking io，采用reactor模式）</li>
-<li>aio方式（asynchronous io,采用proactor模式）</li>
-</ul>
-<h3 id="lvs的三种工作模式"><a href="#lvs的三种工作模式" class="headerlink" title="lvs的三种工作模式"></a>lvs的三种工作模式</h3><ul>
-<li>nat模式-网络地址转换   <ol>
-<li>请求和响应都需要通过lb进行地址改写，一般只能最多10-20台节点 </li>
-<li>只需要在lb上配置一个公网ip  </li>
-<li>每台内部的节点服务器的网关地址必须是调度器lb的内网地址  </li>
-<li>支持对ip和端口进行转换</li>
-</ol>
-</li>
-<li>tun模式   <ol>
-<li>响应数据直接返回给客户端，提高集群吞吐量 </li>
-<li>lb收到入站请求包，进行ip tunnel封装 </li>
-</ol>
-</li>
-<li><p>DR模式(direct routing)   </p>
-<ol>
-<li>lb修改数据包目的mac地址实现转发 </li>
-<li>响应数据直接返回给客户端 </li>
-<li>rs节点和调度器lb只能在一个局域网</li>
-<li>rs主机需要绑定vip地址在lo接口，需要配置arp</li>
-<li>不能改写端口，rs服务器需要使用和vip相同的端口</li>
-</ol>
-<p><img src="/2018/01/18/note0118/笔记/2.png" alt=""></p>
-</li>
+<h2 id="Storm"><a href="#Storm" class="headerlink" title="Storm"></a>Storm</h2><h3 id="Storm能做什么"><a href="#Storm能做什么" class="headerlink" title="Storm能做什么"></a>Storm能做什么</h3><p>Storm是一个开源的分布式实时计算系统，可以简单、可靠的处理大量数据流。Storm有<br>很多适用场景，如实时分析、在线机器学习、持续计算、分布式RPC、ETL等。</p>
+<h3 id="Storm特性"><a href="#Storm特性" class="headerlink" title="Storm特性"></a>Storm特性</h3><ul>
+<li>编程模型简单</li>
+<li>可扩展</li>
+<li>高可靠性</li>
+<li>高容错性</li>
+<li>支持多种编程语言</li>
+<li>支持本地模式</li>
+<li>高效（用ZeroMQ作为底层消息队列）</li>
+<li>运维部署简单（支持动态部署/动态增删节点）</li>
+<li>图形化监控</li>
 </ul>
   
 	</div>
 		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/读书笔记/">读书笔记</a>
+  </div>
 
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="https://stringxy.github.io/2018/01/18/note0118/" data-title="笔记.md | StringXy" data-tsina="1785855413" class="share clearfix">
+  <div data-url="https://stringxy.github.io/2018/03/10/note0310/" data-title="20180310笔记 | StringXy" data-tsina="1785855413" class="share clearfix">
   </div>
 
 </div>
@@ -165,13 +135,21 @@ bio方式（blocking io，阻塞的方式">
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2018/01/19/note0119/" title="《大型网站系统与java中间件实践》笔记一">
+ <a href="/2018/04/28/note0428/" title="深度学习研究笔记1">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  《大型网站系统与java中间件实践》笔记一</span>
+  深度学习研究笔记1</span>
 </a>
 </div>
 
+
+<div class="next">
+<a href="/2018/01/29/note0129/"  title="《大型网站系统与java中间件实践》笔记四">
+ <strong>NEXT:</strong><br/> 
+ <span>《大型网站系统与java中间件实践》笔记四
+</span>
+</a>
+</div>
 
 </nav>
 
@@ -181,7 +159,7 @@ bio方式（blocking io，阻塞的方式">
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
-  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#分布式存储系统故障分类"><span class="toc-number">1.</span> <span class="toc-text">分布式存储系统故障分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#秒杀系统的应对策略"><span class="toc-number">2.</span> <span class="toc-text">秒杀系统的应对策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组成计算机的5要素"><span class="toc-number">3.</span> <span class="toc-text">组成计算机的5要素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络通信基础知识"><span class="toc-number">4.</span> <span class="toc-text">网络通信基础知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络io实现方式"><span class="toc-number">5.</span> <span class="toc-text">网络io实现方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lvs的三种工作模式"><span class="toc-number">6.</span> <span class="toc-text">lvs的三种工作模式</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#淘宝技术这十年"><span class="toc-number">1.</span> <span class="toc-text">淘宝技术这十年</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#自创技术"><span class="toc-number">1.0.1.</span> <span class="toc-text">自创技术</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Storm"><span class="toc-number">2.</span> <span class="toc-text">Storm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Storm能做什么"><span class="toc-number">2.1.</span> <span class="toc-text">Storm能做什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Storm特性"><span class="toc-number">2.2.</span> <span class="toc-text">Storm特性</span></a></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
