@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="XY"><meta name="description" content="不会跳hiphop的全站攻城狮不是一个好的个人游戏开发程序媛"><link rel="alternative" href="/atom.xml" title="StringXy" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>美团DDD学习笔记 - StringXy</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">StringXy</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">カタログ/（目录）</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"> <time class="post__time" datetime="2018-07-11T08:04:44.000Z">July 11, 2018</time><h1 class="post__title"><a href="/2018/07/11/美团ddd/">美团DDD学习笔记</a></h1><div class="post__main echo"><h1 id="美团DDD学习笔记"><a href="#美团DDD学习笔记" class="headerlink" title="美团DDD学习笔记"></a>美团DDD学习笔记</h1><hr>
+<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2><p><strong>划分限界上下文</strong>:<br>限界上下文应该从需求出发，按领域划分。<br><strong>实体</strong>:<br>当一个对象由其标识（而不是属性）区分时，这种对象称为实体（Entity）(类似于之前的javaBean)。<br><strong>值对象</strong>:<br>当一个对象用于对事务进行描述而没有唯一标识时，它被称作值对象（Value●Object）。它具有不变性、相等性和可替换性。（类似于商品快照）<br><strong>聚合根</strong>:<br>Aggregate( 聚合）是一组相关对象的集合，作为一个整体被外界访问，聚合根<br>（Aggregate●Root）是这个聚合的根节点。聚合由根实体，值对象和实体组成。<br><strong>领域服务</strong><br>一些重要的领域行为或操作，可以归类为领域服务。它既不是实体，也不是值对象的范畴。<br><strong>领域事件</strong><br>领域事件是对领域内发生的活动进行的建模。<br><strong>防腐层</strong><br>亦称适配层。在一个上下文中，有时需要对外部上下文进行访问，通常会引入防腐层的概念来对外部上下文的访问进行一次转义。以用户信息防腐层举例，它以抽奖请求参数(LotteryContext)为入参，以城市信息 (MtCityInfo) 为输出。<br><strong>DTO</strong><br>信息传输对象（DTO）来完成与外界的数据交互<br><strong>DO</strong><br>过领域对象（DO）作为领域内部的数据和行为载体<br><strong>PO</strong><br>数据库持久化对象（PO）进行数据库资源的交互<br>（DTO 与 DO 的转换发生在领域服务内，DO 与 PO 的转换发生在资源库）<br><strong>上下文集成</strong><br>通常集成上下文的手段有多种，常见的手段包括开放领域服务接口、开放 HTTP<br>服务以及消息发布 -订阅机制。同时，如果在一个上下文对另一个上下文进行集成时，若需要一定的隔离和适配，可以引入防腐层的概念。</p>
+<hr>
+<h3 id="限界上下文之间的映射关系"><a href="#限界上下文之间的映射关系" class="headerlink" title="限界上下文之间的映射关系"></a>限界上下文之间的映射关系</h3><blockquote>
+<ul>
+<li>合作关系（Partnership）：两个上下文紧密合作的关系，一荣俱荣，一损俱损。</li>
+<li>共享内核（Shared●Kernel）：两个上下文依赖部分共享的模型。</li>
+<li>客户方 - 供应方开发（Customer-Supplier●Development）：上下文之间有组织的上下游依赖。</li>
+<li>遵奉者（Conformist）：下游上下文只能盲目依赖上游上下文。</li>
+<li>防腐层（Anticorruption●Layer）：一个上下文通过一些适配和转换与另一个上下文交互。</li>
+<li>开放主机服务（Open●Host●Service）：定义一种协议来让其他上下文来对本上下文进行访问。</li>
+<li>发布语言（Published●Language）：通常与 OHS一起使用，用于定义开放主机的协议。</li>
+<li>大泥球（Big●Ball●of●Mud）：混杂在一起的上下文关系，边界不清晰。</li>
+<li>另谋他路（SeparateWay）：两个完全没有任何联系的上下文。</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="组织结构："><a href="#组织结构：" class="headerlink" title="组织结构："></a><strong>组织结构</strong>：</h3><blockquote>
+<p>import com.company.team.bussiness.contextName.domain.valobj.<em>;// 领域对象 -值对象 import com.company.team.bussiness.contextName.domain.entity.</em>;// 领域对象 - 实体 import com.company.team.bussiness.contextName.domain.aggregate.<em>;// 领域对象 聚合根 import com.company.team.bussiness.contextName.service.</em>;// 领域服务 import com.company.team.bussiness.contextName.repo.<em>;// 领域资源库 import com.company.team.bussiness.contextName.facade.</em>;// 领域防腐层。</p>
+</blockquote>
+<p><strong>repository组织结构</strong>（资源库对外的整体访问由Repository提供，它聚合了各个资源库的数据信息，同时也承担了资源存储的逻辑（例如缓存更新机制等））：</p>
+<hr>
+<blockquote>
+<p>com.company.team.bussiness.lottery.repo.dao.AwardPoolDao;// 数据库访 问对象 - 奖池 import com.company.team.bussiness.lottery.repo.dao.AwardDao;// 数据库访问对 象 - 奖品 import com.company.team.bussiness.lottery.repo.dao.po.AwardPO;// 数据库持久 化对象 - 奖品 import com.company.team.bussiness.lottery.repo.dao.po.AwardPoolPO;// 数据 库持久化对象 - 奖池<br>import com.company.team.bussiness.lottery.repo.cache.DrawLotteryCacheAccessObj; // 分布式缓存访问对象 - 抽奖缓存访问 import com.company.team.bussiness.lottery.repo.repository.DrawLotteryRepository; // 资源库访问对象 - 抽奖资源库</p>
+</blockquote>
+<hr>
+<h2 id="分离领域"><a href="#分离领域" class="headerlink" title="分离领域"></a>分离领域</h2><p>美团采用的微服务架构风格，应用服务对于外部来说是一个领域服务，整体看起来则是一个独立的限界上下文。</p>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><p>优==高内聚低耦合<br>劣==不适合简单系统</p>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/java/">java</a></li></ul></footer></article><div class="comments" id="lv-container" data-id="city" data-uid="your uid"><script>(function(d, s) {var j, e = d.getElementsByTagName(s)[0];if (typeof LivereTower === 'function') { return; } j = d.createElement(s);j.src = 'https://cdn-city.livere.com/js/embed.dist.js';j.async = true;e.parentNode.insertBefore(j, e);})(document, 'script');</script></div></main><footer class="foot"><div class="foot-copy">&copy; 2018 XY</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
