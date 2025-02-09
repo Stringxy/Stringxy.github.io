@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Stringxy Zone</title>
+    <title>Windows11下VirtualBox搭建Ubuntu22.04 | Stringxy Zone</title>
     <meta name="author" content="Utada Wendic" />
     <meta name="description" content="Welcome to Stringxy Zone! I am Utada Wendic,a full stack programmer who started with Java. This website is used to record notes on learning cloud native technology and LLM development." />
     <meta name="keywords" content="" />
@@ -42,7 +42,9 @@
 
 
 
-<script src="/js/lib/home.js"></script>
+
+
+
 
 <link rel="stylesheet" href="/css/main.css" />
 
@@ -152,39 +154,17 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="home-head">
-    <div
-        id="home-background"
-        ref="homeBackground"
-        data-images="/images/background.png"
-    ></div>
-    <div id="home-info" @click="homeClick">
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="info">
-            <div class="wrap">
-                <h1>Stringxy Zone</h1>
-                <h3></h3>
-                <h5>Welcome to Stringxy Zone! I am Utada Wendic,a full stack programmer who started with Java. This website is used to record notes on learning cloud native technology and LLM development.</h5>
-            </div>
-        </span>
+            <div class="article">
+    <div>
+        <h1>Windows11下VirtualBox搭建Ubuntu22.04</h1>
     </div>
-</div>
-<div
-    id="home-posts-wrap"
-    ref="homePostsWrap"
-    true
->
-    <div id="home-posts">
-        
-
-<div class="post">
-    <a href="/2025/02/08/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8extender%E6%89%A9%E5%B1%95%E8%B0%83%E5%BA%A6%E5%99%A8/">
-        <h2 class="post-title">Kubernetes二次开发——使用extender扩展调度器</h2>
-    </a>
-    <div class="category-and-date">
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/2/8
+        </span>
         
         <span class="category">
             <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F%E8%BF%90%E7%BB%B4/">
@@ -195,127 +175,33 @@
             </a>
         </span>
         
-        <span class="date">
+        
+        <span class="tags">
             <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
+                <i class="fa-solid fa-tags fa-fw"></i>
             </span>
-            2025/2/8
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
             
             
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/Kubernetes/" style="color: #00bcd4">Kubernetes</a>
-        </span>
-        
-    </div>
-    <a href="/2025/02/08/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8extender%E6%89%A9%E5%B1%95%E8%B0%83%E5%BA%A6%E5%99%A8/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2025/02/08/VirtualBox%E6%90%AD%E5%BB%BAUbuntu-Kubernetes%E9%9B%86%E7%BE%A4/">
-        <h2 class="post-title">VirtualBox搭建Ubuntu-Kubernetes集群</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F%E8%BF%90%E7%BB%B4/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                云原生运维
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
+            <span class="tag">
+                
+                <a href="/tags/VirtualBox/" style="color: #03a9f4">
+                    VirtualBox
+                </a>
             </span>
-            2025/2/8
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
             
-            <h1 id="VirtualBox搭建Ubuntu-Kubernetes集群"><a href="#VirtualBox搭建Ubuntu-Kubernetes集群" class="headerlink" title="VirtualBox搭建Ubuntu-Kubernetes集群"></a>VirtualBox搭建Ubuntu-Kubernetes集群</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>Windows11下VirtualBox搭建Ubuntu<br>##环境说明<br>1.硬件环境<br>虚拟机硬件规格：2CPU 40GB<br>虚拟机数量： 3台<br>虚拟机操作系统：ubuntu-22.04.3-live-server-amd64.iso</p>
-<p>操作系统	主机名	IP<br>ubuntu-22.04.3	k8s-master	10.0.0.150<br>ubuntu-22.04.3	k8s-node1	10.0.0.151<br>ubuntu-22.04.3	k8s-node2	10.0.0.152</p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/VirtualBox/" style="color: #00a596">VirtualBox</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/Ubuntu/" style="color: #00bcd4">Ubuntu</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/Kubernetes/" style="color: #ffa2c4">Kubernetes</a>
-        </span>
-        
-    </div>
-    <a href="/2025/02/08/VirtualBox%E6%90%AD%E5%BB%BAUbuntu-Kubernetes%E9%9B%86%E7%BE%A4/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2025/02/08/Windows11%E4%B8%8BVirtualBox%E6%90%AD%E5%BB%BAUbuntu/">
-        <h2 class="post-title">Windows11下VirtualBox搭建Ubuntu22.04</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F%E8%BF%90%E7%BB%B4/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                云原生运维
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
+            <span class="tag">
+                
+                <a href="/tags/Ubuntu/" style="color: #00a596">
+                    Ubuntu
+                </a>
             </span>
-            2025/2/8
+            
         </span>
         
-        
     </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h1 id="Windows11下VirtualBox搭建Ubuntu22-04"><a href="#Windows11下VirtualBox搭建Ubuntu22-04" class="headerlink" title="Windows11下VirtualBox搭建Ubuntu22.04"></a>Windows11下VirtualBox搭建Ubuntu22.04</h1><h3 id="1-下载Ubuntu镜像"><a href="#1-下载Ubuntu镜像" class="headerlink" title="1. 下载Ubuntu镜像"></a>1. 下载Ubuntu镜像</h3><p>从清华大学开源软件镜像站下载Ubuntu22.04镜像：<br><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/">https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/</a></p>
+    
+    <div class="content" v-pre>
+        <h1 id="Windows11下VirtualBox搭建Ubuntu22-04"><a href="#Windows11下VirtualBox搭建Ubuntu22-04" class="headerlink" title="Windows11下VirtualBox搭建Ubuntu22.04"></a>Windows11下VirtualBox搭建Ubuntu22.04</h1><h3 id="1-下载Ubuntu镜像"><a href="#1-下载Ubuntu镜像" class="headerlink" title="1. 下载Ubuntu镜像"></a>1. 下载Ubuntu镜像</h3><p>从清华大学开源软件镜像站下载Ubuntu22.04镜像：<br><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/">https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/</a></p>
 <h3 id="2-安装Ubuntu"><a href="#2-安装Ubuntu" class="headerlink" title="2. 安装Ubuntu"></a>2. 安装Ubuntu</h3><ul>
 <li>设置节点名称：如ubuntu-master</li>
 <li>设置节点文件夹：默认C盘，可换到其他磁盘</li>
@@ -353,68 +239,13 @@ apt-get install openssh-server -y
 ufw disable
 </code></pre>
 <h4 id="至此，可以开始用Ubuntu搞事啦"><a href="#至此，可以开始用Ubuntu搞事啦" class="headerlink" title="至此，可以开始用Ubuntu搞事啦~"></a>至此，可以开始用Ubuntu搞事啦~</h4>
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/VirtualBox/" style="color: #00bcd4">VirtualBox</a>
-        </span>
-        
-        <span class="tag">
-            
-            <a href="/tags/Ubuntu/" style="color: #00a596">Ubuntu</a>
-        </span>
-        
-    </div>
-    <a href="/2025/02/08/Windows11%E4%B8%8BVirtualBox%E6%90%AD%E5%BB%BAUbuntu/" class="go-post">阅读全文</a>
-</div>
-
-
-        <div class="page-current">
-    
-    <span class="current">1</span>
-    
-    
-    
-    
-</div>
-
     </div>
     
-    <div id="home-card">
-        <div id="card-style">
-    <div id="card-div">
-        <div class="avatar">
-            <img src="/images/avatar.jpg" alt="avatar" />
-        </div>
-        <div class="name">Utada Wendic</div>
-        <div class="description">
-            <p>Kuma Power<br>…</p>
-
-        </div>
-        
-        
-        <div class="friend-links">
-            
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://argvchs.github.io">Argvchs</a>
-            </div>
-            
-        </div>
-        
-    </div>
-</div>
-
-    </div>
+    
+    
+    
+    
+    
     
 </div>
 
@@ -446,6 +277,12 @@ ufw disable
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+
+
+
+
     
 </body>
 </html>
