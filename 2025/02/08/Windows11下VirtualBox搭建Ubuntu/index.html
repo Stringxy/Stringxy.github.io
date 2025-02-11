@@ -35,6 +35,11 @@
 <script src="/js/lib/highlight.js"></script>
 
 
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
 
 <script src="/js/lib/preview.js"></script>
 
@@ -46,7 +51,9 @@
 
 
 
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 <link rel="stylesheet" href="/css/main.css" />
+<link rel="preconnect" href="https://static-argvchs.netlify.app" />
 
 <meta name="generator" content="Hexo 7.3.0"></head>
 <body>
@@ -184,14 +191,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/VirtualBox/" style="color: #03a9f4">
+                <a href="/tags/VirtualBox/" style="color: #ff7d73">
                     VirtualBox
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Ubuntu/" style="color: #00a596">
+                <a href="/tags/Ubuntu/" style="color: #ffa2c4">
                     Ubuntu
                 </a>
             </span>
@@ -205,7 +212,11 @@
 <h3 id="2-安装Ubuntu"><a href="#2-安装Ubuntu" class="headerlink" title="2. 安装Ubuntu"></a>2. 安装Ubuntu</h3><ul>
 <li>设置节点名称：如ubuntu-master</li>
 <li>设置节点文件夹：默认C盘，可换到其他磁盘</li>
-<li>设置镜像文件：选择下载的镜像文件<br><img src="/images/img.png" alt="img.png"></li>
+<li>设置镜像文件：选择下载的镜像文件</li>
+</ul>
+<span id="more"></span>
+<p><img src="/images/img.png" alt="img.png"></p>
+<ul>
 <li>设置初始化账号</li>
 <li>设置节点域名<br><img src="/images/img_1.png" alt="img_1.png"></li>
 <li>设置节点硬件配置：本文主要用来搭建Kubernetes集群，因此配置内存为2G，CPU为2核，硬盘为20G<br><img src="/images/img_2.png" alt="img_2.png"><br><img src="/images/img_3.png" alt="img_3.png"></li>
@@ -238,11 +249,33 @@ netplan apply
 apt-get install openssh-server -y
 ufw disable
 </code></pre>
+<h3 id="4-同步时间"><a href="#4-同步时间" class="headerlink" title="4. 同步时间"></a>4. 同步时间</h3><ul>
+<li>此时可能发现Ubuntu的时间不对，需要同步时间，用以下命令配置时区</li>
+</ul>
+<pre><code class="language-bash"># 设置为亚洲的上海时区
+sudo timedatectl set-timezone Asia/Shanghai
+# 重启时间同步服务
+sudo systemctl restart systemd-timesyncd.service
+# 确保时间同步服务正常运行
+timedatectl status
+</code></pre>
+<ul>
+<li>用以下命令同步时间</li>
+</ul>
+<pre><code class="language-bash">sudo apt-get install ntpdate -y
+ntpdate time.windows.com
+#检查时间
+date -R
+</code></pre>
 <h4 id="至此，可以开始用Ubuntu搞事啦"><a href="#至此，可以开始用Ubuntu搞事啦" class="headerlink" title="至此，可以开始用Ubuntu搞事啦~"></a>至此，可以开始用Ubuntu搞事啦~</h4>
     </div>
     
     
     
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
     
     
     
@@ -253,7 +286,7 @@ ufw disable
     <div id="footer-wrap">
         <div>
             &copy;
-            2022 - 2025 Stringxy Zone
+            2025 - 2025 Stringxy Zone
             <span id="footer-icon">
                 <i class="fa-solid fa-font-awesome fa-fw"></i>
             </span>
@@ -277,8 +310,32 @@ ufw disable
         
     </div>
     <script src="/js/main.js"></script>
+    <script>
+        console.log("Welcome to Argvchs' blog!");
+        if (!window.hasOwnProperty("ontouchstart")) {
+            let html = '<canvas id="fireworks" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"></canvas><script src="https://static-argvchs.netlify.app/js/fireworks.min.js"><\/script>';
+            document.body.append(document.createRange().createContextualFragment(html));
+        }
+    </script>
     
     
+<script
+    src="https://giscus.app/client.js"
+    data-repo="argvchs/giscus-comments"
+    data-repo-id="R_kgDOI_uC-w"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOI_uC-84CUToF"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
 
 
 

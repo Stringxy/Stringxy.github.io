@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>categories | Stringxy Zone</title>
+    <title>Kubernetes二次开发——编写CRD及Operator | Stringxy Zone</title>
     <meta name="author" content="Utada Wendic" />
     <meta name="description" content="Welcome to Stringxy Zone! I am Utada Wendic,a full stack programmer who started with Java. This website is used to record notes on learning cloud native technology and LLM development." />
     <meta name="keywords" content="" />
@@ -163,21 +163,124 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>categories</h1>
+        <h1>Kubernetes二次开发——编写CRD及Operator</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2025/2/9
+            2025/2/10
         </span>
         
+        <span class="category">
+            <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F%E8%BF%90%E7%BB%B4/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                云原生运维
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Kubernetes/" style="color: #00bcd4">
+                    Kubernetes
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" style="color: #ff7d73">
+                    Kubernetes二次开发
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Golang/" style="color: #00bcd4">
+                    Golang
+                </a>
+            </span>
+            
+        </span>
         
     </div>
     
     <div class="content" v-pre>
-        
+        <h1 id="kubebuilder-operator-example"><a href="#kubebuilder-operator-example" class="headerlink" title="kubebuilder-operator-example"></a>kubebuilder-operator-example</h1><p>使用kubebuilder构建的XyDaemonset控制器,通过配置镜像、副本数、启动命令，在集群每个节点部署node，并实现根据副本数扩缩容</p>
+<h2 id="环境-Environment"><a href="#环境-Environment" class="headerlink" title="环境 Environment"></a>环境 Environment</h2><ul>
+<li>kubebuilder: v4.4.0</li>
+<li>kubernetes api: v1.32.0</li>
+</ul>
+<span id="more"></span>
+<hr>
+<h2 id="项目初始化"><a href="#项目初始化" class="headerlink" title="项目初始化"></a>项目初始化</h2><h3 id="Create-a-kubebuilder-project-which-requires-an-empty-folder"><a href="#Create-a-kubebuilder-project-which-requires-an-empty-folder" class="headerlink" title="Create a kubebuilder project, which requires an empty folder"></a>Create a kubebuilder project, which requires an empty folder</h3><pre><code class="language-bash"># 初始化项目骨架
+kubebuilder init --domain xy.io
+
+# 初始化 CRD，两个确认都是 y
+kubebuilder create api --group xytest --version v1 --kind XyDaemonset
+</code></pre>
+<h2 id="定义CRD参数及结构"><a href="#定义CRD参数及结构" class="headerlink" title="定义CRD参数及结构"></a>定义CRD参数及结构</h2><h3 id="Open-project-with-IDE-and-edit-api-v1-xydaemonset-types-go"><a href="#Open-project-with-IDE-and-edit-api-v1-xydaemonset-types-go" class="headerlink" title="Open project with IDE and edit api&#x2F;v1&#x2F;xydaemonset_types.go"></a>Open project with IDE and edit api&#x2F;v1&#x2F;xydaemonset_types.go</h3><p><code>api/v1/xydaemonset_types.go</code> 定义了 Xydaemonset 的 CRD，执行命令如下命令生成 CRD 定义的 yaml 文件，文件位置在 <code>config/crd/bases/xytest.xy.io_xydaemonsets.yaml</code></p>
+<pre><code class="language-bash">make manifests
+</code></pre>
+<p>之后使用 kubectl 将此 CRD 定义 apply 到 k8s 上</p>
+<p>Use kubectl command to apply this CRD definition to k8s</p>
+<pre><code class="language-bash">kubectl apply -f config/crd/bases/xytest.xy.io_xydaemonsets.yaml
+</code></pre>
+<h2 id="编写Controller逻辑，并配置权限"><a href="#编写Controller逻辑，并配置权限" class="headerlink" title="编写Controller逻辑，并配置权限"></a>编写Controller逻辑，并配置权限</h2><h3 id="Edit-controllers-xydaemonset-controller-go-add-permissions-to-the-controller"><a href="#Edit-controllers-xydaemonset-controller-go-add-permissions-to-the-controller" class="headerlink" title="Edit controllers&#x2F;xydaemonset_controller.go, add permissions to the controller"></a>Edit controllers&#x2F;xydaemonset_controller.go, add permissions to the controller</h3><pre><code class="language-bash">// Add permissions to the controller
+// +kubebuilder:rbac:groups=xytest.xy.io,resources=xydaemonsets,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=xytest.xy.io,resources=xydaemonsets/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=xytest.xy.io,resources=xydaemonsets/finalizers,verbs=update
+// +kubebuilder:rbac:groups=core,resources=nodes,verbs=get;list;watch
+// +kubebuilder:rbac:groups=core,resources=pods,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=&quot;&quot;,resources=pods/status,verbs=get
+</code></pre>
+<p>执行如下命令在本地运行 controller</p>
+<p>run controller service locally</p>
+<pre><code class="language-bash">make run
+</code></pre>
+<h3 id="Build-install"><a href="#Build-install" class="headerlink" title="Build &amp; install"></a>Build &amp; install</h3><pre><code class="language-sh">make build
+make docker-build
+make docker-push
+make deploy
+</code></pre>
+<h2 id="示例参数说明"><a href="#示例参数说明" class="headerlink" title="示例参数说明"></a>示例参数说明</h2><h3 id="Example-description"><a href="#Example-description" class="headerlink" title="Example description"></a>Example description</h3><pre><code class="language-yaml">apiVersion: xytest.xy.io/v1
+kind: XyDaemonset
+metadata:
+labels:
+app.kubernetes.io/name: data
+app.kubernetes.io/managed-by: kustomize
+name: xydaemonset-busybox
+namespace: xytest
+spec:
+command: [&quot;sleep&quot;, &quot;3600&quot;] # 容器启动命令
+image: busybox  #容器镜像
+replicas: 1 #每个节点上的副本数
+</code></pre>
+<h2 id="XyDaemonsetStatus属性说明"><a href="#XyDaemonsetStatus属性说明" class="headerlink" title="XyDaemonsetStatus属性说明"></a>XyDaemonsetStatus属性说明</h2><h3 id="XyDaemonsetStatus-description"><a href="#XyDaemonsetStatus-description" class="headerlink" title="XyDaemonsetStatus description"></a>XyDaemonsetStatus description</h3><ul>
+<li>AvailableReplicas：当前运行中的副本数</li>
+<li>PodNames：当前运行中的Pod名称</li>
+<li>AutoScalingStatus：是否正在扩缩容</li>
+</ul>
+<pre><code class="language-bash">// XyDaemonsetStatus defines the observed state of XyDaemonset.
+type XyDaemonsetStatus struct &#123;
+// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
+// Important: Run &quot;make&quot; to regenerate code after modifying this file
+
+	AvailableReplicas int      `json:&quot;availableReplicas&quot;`
+	PodNames          []string `json:&quot;podNames&quot;`
+	AutoScalingStatus string   `json:&quot;autoScalingStatus&quot;`
+&#125;
+</code></pre>
+
     </div>
     
     

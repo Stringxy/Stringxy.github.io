@@ -35,6 +35,11 @@
 <script src="/js/lib/highlight.js"></script>
 
 
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
 
 <script src="/js/lib/preview.js"></script>
 
@@ -42,7 +47,9 @@
 
 
 
+<script src="https://s4.zstatic.net/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 <link rel="stylesheet" href="/css/main.css" />
+<link rel="preconnect" href="https://static-argvchs.netlify.app" />
 
 <meta name="generator" content="Hexo 7.3.0"></head>
 <body>
@@ -181,11 +188,44 @@
         
         
         <span>
-            <a href="/tags/Kubernetes/" style="background: #ffa2c4">
+            <a href="/tags/Kubernetes/" style="background: #ff7d73">
                 <span class="icon">
                     <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
                 Kubernetes
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/Kube-OVN/" style="background: #03a9f4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                Kube-OVN
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" style="background: #00bcd4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                Kubernetes二次开发
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/Golang/" style="background: #ff7d73">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                Golang
             </a>
         </span>
         
@@ -197,7 +237,7 @@
         <div class="timeline-content">
             <div class="item-time">2025/2/8</div>
             <a href="/2025/02/08/VirtualBox%E6%90%AD%E5%BB%BAUbuntu-Kubernetes%E9%9B%86%E7%BE%A4/">
-                <h3>VirtualBox搭建Ubuntu-Kubernetes集群</h3>
+                <h3>Ubuntu22.04搭建Kubernetes1.27集群</h3>
             </a>
             <div class="info">
                 
@@ -219,22 +259,29 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/VirtualBox/" style="color: #00a596">
+                        <a href="/tags/VirtualBox/" style="color: #ff7d73">
                             VirtualBox
                         </a>
                     </span>
                     
                     <span class="tag">
                         
-                        <a href="/tags/Ubuntu/" style="color: #00bcd4">
+                        <a href="/tags/Ubuntu/" style="color: #03a9f4">
                             Ubuntu
                         </a>
                     </span>
                     
                     <span class="tag">
                         
-                        <a href="/tags/Kubernetes/" style="color: #03a9f4">
+                        <a href="/tags/Kubernetes/" style="color: #00bcd4">
                             Kubernetes
+                        </a>
+                    </span>
+                    
+                    <span class="tag">
+                        
+                        <a href="/tags/Kube-OVN/" style="color: #ffa2c4">
+                            Kube-OVN
                         </a>
                     </span>
                     
@@ -271,7 +318,7 @@
                     
                     <span class="tag">
                         
-                        <a href="/tags/VirtualBox/" style="color: #00a596">
+                        <a href="/tags/VirtualBox/" style="color: #ff7d73">
                             VirtualBox
                         </a>
                     </span>
@@ -295,7 +342,7 @@
     <div id="footer-wrap">
         <div>
             &copy;
-            2022 - 2025 Stringxy Zone
+            2025 - 2025 Stringxy Zone
             <span id="footer-icon">
                 <i class="fa-solid fa-font-awesome fa-fw"></i>
             </span>
@@ -319,6 +366,13 @@
         
     </div>
     <script src="/js/main.js"></script>
+    <script>
+        console.log("Welcome to Argvchs' blog!");
+        if (!window.hasOwnProperty("ontouchstart")) {
+            let html = '<canvas id="fireworks" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"></canvas><script src="https://static-argvchs.netlify.app/js/fireworks.min.js"><\/script>';
+            document.body.append(document.createRange().createContextualFragment(html));
+        }
+    </script>
     
 </body>
 </html>
