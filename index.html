@@ -188,6 +188,69 @@
         
 
 <div class="post">
+    <a href="/2025/02/11/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8extender%E6%89%A9%E5%B1%95%E8%B0%83%E5%BA%A6%E5%99%A8/">
+        <h2 class="post-title">Kubernetes二次开发——使用extender扩展调度器</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F%E8%BF%90%E7%BB%B4/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                云原生运维
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/2/11
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <h1 id="k8s-自定义调度器逻辑之-Scheduler-Extender"><a href="#k8s-自定义调度器逻辑之-Scheduler-Extender" class="headerlink" title="k8s 自定义调度器逻辑之 Scheduler Extender"></a>k8s 自定义调度器逻辑之 Scheduler Extender</h1><p>实现一个读取Metrics-Server指标打分的简单Scheduler Extender。</p>
+<p>功能如下：</p>
+<ul>
+<li>1）过滤阶段：仅调度到带有 Label <code>filter.xy.com</code> 的节点上</li>
+<li>2）打分阶段：读取Metrics-Server指标，CPU利用率最低的节点为优</li>
+</ul>
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/Kubernetes/" style="color: #00bcd4">Kubernetes</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" style="color: #ff7d73">Kubernetes二次开发</a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/tags/Golang/" style="color: #00bcd4">Golang</a>
+        </span>
+        
+    </div>
+    <a href="/2025/02/11/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8extender%E6%89%A9%E5%B1%95%E8%B0%83%E5%BA%A6%E5%99%A8/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
     <a href="/2025/02/10/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E7%BC%96%E5%86%99CRD%E5%8F%8AOperator/">
         <h2 class="post-title">Kubernetes二次开发——编写CRD及Operator</h2>
     </a>
@@ -214,10 +277,11 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <h1 id="kubebuilder-operator-example"><a href="#kubebuilder-operator-example" class="headerlink" title="kubebuilder-operator-example"></a>kubebuilder-operator-example</h1><p>使用kubebuilder构建的XyDaemonset控制器,通过配置镜像、副本数、启动命令，在集群每个节点部署node，并实现根据副本数扩缩容</p>
+            <h1 id="kubebuilder中文文档"><a href="#kubebuilder中文文档" class="headerlink" title="kubebuilder中文文档"></a>kubebuilder中文文档</h1><p><a target="_blank" rel="noopener" href="https://xuejipeng.github.io/kubebuilder-doc-cn/introduction.html">https://xuejipeng.github.io/kubebuilder-doc-cn/introduction.html</a></p>
+<h1 id="kubebuilder-operator-example"><a href="#kubebuilder-operator-example" class="headerlink" title="kubebuilder-operator-example"></a>kubebuilder-operator-example</h1><p>使用kubebuilder构建的XyDaemonset控制器,通过配置镜像、副本数、启动命令，在集群每个节点部署node，并实现根据副本数扩缩容</p>
 <h2 id="环境-Environment"><a href="#环境-Environment" class="headerlink" title="环境 Environment"></a>环境 Environment</h2><ul>
 <li>kubebuilder: v4.4.0</li>
-<li>kubernetes api: v1.32.0</li>
+<li>kubernetes: v1.27.1</li>
 </ul>
             
         </div>
@@ -232,12 +296,12 @@
         
         <span class="tag">
             
-            <a href="/tags/Kubernetes/" style="color: #ff7d73">Kubernetes</a>
+            <a href="/tags/Kubernetes/" style="color: #03a9f4">Kubernetes</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" style="color: #00a596">Kubernetes二次开发</a>
+            <a href="/tags/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" style="color: #00bcd4">Kubernetes二次开发</a>
         </span>
         
         <span class="tag">
@@ -247,54 +311,6 @@
         
     </div>
     <a href="/2025/02/10/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E7%BC%96%E5%86%99CRD%E5%8F%8AOperator/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2025/02/08/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8extender%E6%89%A9%E5%B1%95%E8%B0%83%E5%BA%A6%E5%99%A8/">
-        <h2 class="post-title">Kubernetes二次开发——使用extender扩展调度器</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="category">
-            <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F%E8%BF%90%E7%BB%B4/">
-                <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
-                </span>
-                云原生运维
-            </a>
-        </span>
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2025/2/8
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        <span class="icon">
-            <i class="fa-solid fa-tags fa-fw"></i>
-        </span>
-        
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/Kubernetes/" style="color: #ffa2c4">Kubernetes</a>
-        </span>
-        
-    </div>
-    <a href="/2025/02/08/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E4%BD%BF%E7%94%A8extender%E6%89%A9%E5%B1%95%E8%B0%83%E5%BA%A6%E5%99%A8/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
@@ -341,17 +357,17 @@
 <tbody><tr>
 <td>ubuntu-22.04.5</td>
 <td>k8s-master</td>
-<td>192.168.56.2</td>
+<td>192.168.112.174</td>
 </tr>
 <tr>
 <td>ubuntu-22.04.5</td>
 <td>k8s-node1</td>
-<td>192.168.56.3</td>
+<td>192.168.112.175</td>
 </tr>
 <tr>
 <td>ubuntu-22.04.5</td>
 <td>k8s-node2</td>
-<td>192.168.56.4</td>
+<td>192.168.112.176</td>
 </tr>
 </tbody></table>
             
@@ -372,17 +388,17 @@
         
         <span class="tag">
             
-            <a href="/tags/Ubuntu/" style="color: #ff7d73">Ubuntu</a>
+            <a href="/tags/Ubuntu/" style="color: #03a9f4">Ubuntu</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Kubernetes/" style="color: #ffa2c4">Kubernetes</a>
+            <a href="/tags/Kubernetes/" style="color: #00bcd4">Kubernetes</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Kube-OVN/" style="color: #03a9f4">Kube-OVN</a>
+            <a href="/tags/Kube-OVN/" style="color: #ff7d73">Kube-OVN</a>
         </span>
         
     </div>
@@ -435,12 +451,12 @@
         
         <span class="tag">
             
-            <a href="/tags/VirtualBox/" style="color: #00a596">VirtualBox</a>
+            <a href="/tags/VirtualBox/" style="color: #03a9f4">VirtualBox</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Ubuntu/" style="color: #00bcd4">Ubuntu</a>
+            <a href="/tags/Ubuntu/" style="color: #ff7d73">Ubuntu</a>
         </span>
         
     </div>

@@ -191,14 +191,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/VirtualBox/" style="color: #ff7d73">
+                <a href="/tags/VirtualBox/" style="color: #03a9f4">
                     VirtualBox
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Ubuntu/" style="color: #ffa2c4">
+                <a href="/tags/Ubuntu/" style="color: #ff7d73">
                     Ubuntu
                 </a>
             </span>
@@ -232,16 +232,29 @@ apt-get install vim -y
 vim /etc/sudoers
 </code></pre>
 <p><img src="/images/img_7.png" alt="img_7.png"></p>
-<h3 id="3-配置网络"><a href="#3-配置网络" class="headerlink" title="3. 配置网络"></a>3. 配置网络</h3><ul>
+<h3 id="3-配置网络"><a href="#3-配置网络" class="headerlink" title="3. 配置网络"></a>3. 配置网络</h3><h4 id="配置网络真的是大坑，哪位大牛在网上说的配双网卡，我真的谢谢您"><a href="#配置网络真的是大坑，哪位大牛在网上说的配双网卡，我真的谢谢您" class="headerlink" title="配置网络真的是大坑，哪位大牛在网上说的配双网卡，我真的谢谢您"></a>配置网络真的是大坑，哪位大牛在网上说的配双网卡，我真的谢谢您</h4><ul>
 <li>修改Ubuntu网络配置文件，为节点配置静态IP</li>
 </ul>
 <pre><code class="language-bash">vim /etc/netplan/01-network-manager-all.yaml
+-----------
+# Let NetworkManager manage all devices on this system
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    enp0s3:
+      dhcp4: no
+      addresses:
+        - 192.168.112.176/24
+      gateway4: 192.168.112.1
+      nameservers:
+        addresses: [192.168.112.1]
+---------------
 netplan apply
 </code></pre>
-<p><img src="/images/img_8.png" alt="img_8.png"></p>
 <ul>
-<li>配置虚拟机网卡1+网卡2<br><img src="/images/img_4.png" alt="img_4.png"><br><img src="/images/img_9.png" alt="img_9.png"></li>
-<li>此时Windows应该可以ping通Ubuntu的IP<br><img src="/images/img_10.png" alt="img_10.png"></li>
+<li>配置虚拟机网卡<br><img src="/images/img_4.png" alt="img_4.png"></li>
+<li>此时Windows应该可以ping通Ubuntu的IP</li>
 <li>但是Ubuntu可能还Ping不通Windows的，需要给Windows设置如下图防火墙入站规则<br><img src="/images/img_11.png" alt="img_11.png"></li>
 <li>网络通了之后，我还想用ssh工具连接到Ubuntu，发现此时ssh不通，需要在Ubuntu下开启ssh\禁用firewall</li>
 </ul>

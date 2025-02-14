@@ -198,21 +198,21 @@
             
             <span class="tag">
                 
-                <a href="/tags/Ubuntu/" style="color: #00bcd4">
+                <a href="/tags/Ubuntu/" style="color: #00a596">
                     Ubuntu
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Kubernetes/" style="color: #00a596">
+                <a href="/tags/Kubernetes/" style="color: #ffa2c4">
                     Kubernetes
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Kube-OVN/" style="color: #03a9f4">
+                <a href="/tags/Kube-OVN/" style="color: #00a596">
                     Kube-OVN
                 </a>
             </span>
@@ -239,17 +239,17 @@
 <tbody><tr>
 <td>ubuntu-22.04.5</td>
 <td>k8s-master</td>
-<td>192.168.56.2</td>
+<td>192.168.112.174</td>
 </tr>
 <tr>
 <td>ubuntu-22.04.5</td>
 <td>k8s-node1</td>
-<td>192.168.56.3</td>
+<td>192.168.112.175</td>
 </tr>
 <tr>
 <td>ubuntu-22.04.5</td>
 <td>k8s-node2</td>
-<td>192.168.56.4</td>
+<td>192.168.112.176</td>
 </tr>
 </tbody></table>
 <span id="more"></span>
@@ -269,9 +269,9 @@ vim /etc/hostname
 # 修改hosts
 vim /etc/hosts
 # 添加以下内容,这里的ip地址和hostname根据实际情况填写
-192.168.56.2 k8s-master
-192.168.56.3 k8s-node1
-192.168.56.4 k8s-node2
+192.168.112.174 k8s-master
+192.168.112.175 k8s-node1
+192.168.112.176 k8s-node2
 </code></pre>
 <ul>
 <li>转发 IPv4 并让 iptables 看到桥接流量</li>
@@ -377,7 +377,7 @@ bootstrapTokens:
     - authentication
       kind: InitConfiguration
       localAPIEndpoint:
-      advertiseAddress: 192.168.56.2 # master节点ip
+      advertiseAddress: 192.168.112.174 # master节点ip
       bindPort: 6443
       nodeRegistration:
       criSocket: unix:///var/run/containerd/containerd.sock
@@ -422,7 +422,7 @@ sudo kubeadm reset --cert-dir string
 <li>执行kubeadm join xxx命令加入集群，若遇到localhost:8080 was refused报错，需要从Master节点同步kube配置文件到子节点，操作命令如下</li>
 </ul>
 <pre><code class="language-bash"># 复制admin.conf，请在master节点服务器上执行此命令：
-scp /etc/kubernetes/admin.conf 192.168.56.3:/etc/kubernetes/admin.conf
+scp /etc/kubernetes/admin.conf 192.168.112.175:/etc/kubernetes/admin.conf
 
 # 然后在该工作节点上配置环境变量：
 # 设置kubeconfig文件
@@ -505,8 +505,6 @@ sudo systemctl restart kubelet
 <h3 id="1-Kube-OVN"><a href="#1-Kube-OVN" class="headerlink" title="1. Kube-OVN"></a>1. Kube-OVN</h3><ul>
 <li>根据<a target="_blank" rel="noopener" href="https://kubeovn.github.io/docs/v1.13.x/start/one-step-install/">Kube-OVN官方文档</a>进行安装</li>
 </ul>
-<pre><code class="language-bash">
-</code></pre>
 <h4 id="至此，Kubernetes基本环境就搭建结束啦"><a href="#至此，Kubernetes基本环境就搭建结束啦" class="headerlink" title="至此，Kubernetes基本环境就搭建结束啦~"></a>至此，Kubernetes基本环境就搭建结束啦~</h4>
     </div>
     

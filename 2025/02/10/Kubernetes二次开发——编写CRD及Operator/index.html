@@ -191,14 +191,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/Kubernetes/" style="color: #00bcd4">
+                <a href="/tags/Kubernetes/" style="color: #ff7d73">
                     Kubernetes
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" style="color: #ff7d73">
+                <a href="/tags/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" style="color: #03a9f4">
                     Kubernetes二次开发
                 </a>
             </span>
@@ -215,27 +215,65 @@
     </div>
     
     <div class="content" v-pre>
-        <h1 id="kubebuilder-operator-example"><a href="#kubebuilder-operator-example" class="headerlink" title="kubebuilder-operator-example"></a>kubebuilder-operator-example</h1><p>使用kubebuilder构建的XyDaemonset控制器,通过配置镜像、副本数、启动命令，在集群每个节点部署node，并实现根据副本数扩缩容</p>
+        <h1 id="kubebuilder中文文档"><a href="#kubebuilder中文文档" class="headerlink" title="kubebuilder中文文档"></a>kubebuilder中文文档</h1><p><a target="_blank" rel="noopener" href="https://xuejipeng.github.io/kubebuilder-doc-cn/introduction.html">https://xuejipeng.github.io/kubebuilder-doc-cn/introduction.html</a></p>
+<h1 id="kubebuilder-operator-example"><a href="#kubebuilder-operator-example" class="headerlink" title="kubebuilder-operator-example"></a>kubebuilder-operator-example</h1><p>使用kubebuilder构建的XyDaemonset控制器,通过配置镜像、副本数、启动命令，在集群每个节点部署node，并实现根据副本数扩缩容</p>
 <h2 id="环境-Environment"><a href="#环境-Environment" class="headerlink" title="环境 Environment"></a>环境 Environment</h2><ul>
 <li>kubebuilder: v4.4.0</li>
-<li>kubernetes api: v1.32.0</li>
+<li>kubernetes: v1.27.1</li>
 </ul>
 <span id="more"></span>
 <hr>
-<h2 id="项目初始化"><a href="#项目初始化" class="headerlink" title="项目初始化"></a>项目初始化</h2><h3 id="Create-a-kubebuilder-project-which-requires-an-empty-folder"><a href="#Create-a-kubebuilder-project-which-requires-an-empty-folder" class="headerlink" title="Create a kubebuilder project, which requires an empty folder"></a>Create a kubebuilder project, which requires an empty folder</h3><pre><code class="language-bash"># 初始化项目骨架
+<h2 id="项目初始化"><a href="#项目初始化" class="headerlink" title="项目初始化"></a>项目初始化</h2><ul>
+<li>Kubebuilder 是一个基于 CRD 来构建 Kubernetes API 的框架，可以使用 CRD 来构建 API、Controller 和 Admission Webhook。</li>
+</ul>
+<pre><code class="language-bash"># 初始化项目骨架
 kubebuilder init --domain xy.io
 
 # 初始化 CRD，两个确认都是 y
 kubebuilder create api --group xytest --version v1 --kind XyDaemonset
 </code></pre>
-<h2 id="定义CRD参数及结构"><a href="#定义CRD参数及结构" class="headerlink" title="定义CRD参数及结构"></a>定义CRD参数及结构</h2><h3 id="Open-project-with-IDE-and-edit-api-v1-xydaemonset-types-go"><a href="#Open-project-with-IDE-and-edit-api-v1-xydaemonset-types-go" class="headerlink" title="Open project with IDE and edit api&#x2F;v1&#x2F;xydaemonset_types.go"></a>Open project with IDE and edit api&#x2F;v1&#x2F;xydaemonset_types.go</h3><p><code>api/v1/xydaemonset_types.go</code> 定义了 Xydaemonset 的 CRD，执行命令如下命令生成 CRD 定义的 yaml 文件，文件位置在 <code>config/crd/bases/xytest.xy.io_xydaemonsets.yaml</code></p>
+<h2 id="定义CRD参数及结构"><a href="#定义CRD参数及结构" class="headerlink" title="定义CRD参数及结构"></a>定义CRD参数及结构</h2><ul>
+<li>CRD的定义可参照<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/">官方文档</a><br>或参照其他开源项目，如Kubernetes批量计算调度引擎Volcano的CRD定义<a target="_blank" rel="noopener" href="https://github.com/volcano-sh/apis/blob/master/pkg/apis/batch/v1alpha1/job.go">https://github.com/volcano-sh/apis/blob/master/pkg/apis/batch/v1alpha1/job.go</a></li>
+<li>本文在<code>api/v1/xydaemonset_types.go</code> 定义了 Xydaemonset 的 CRD,通过XyDaemonsetSpec用户可指定镜像、启动命令、副本数等参数，XyDaemonsetStatus记录了当前运行中的副本数、Pod名称、是否正在扩缩容</li>
+</ul>
+<pre><code class="language-golang">type XyDaemonsetSpec struct &#123;
+Image    string   `json:&quot;image&quot;`
+Command  []string `json:&quot;command&quot;`
+Replicas int      `json:&quot;replicas,omitempty&quot;`
+&#125;
+
+type XyDaemonsetStatus struct &#123;
+AvailableReplicas int      `json:&quot;availableReplicas&quot;`
+PodNames          []string `json:&quot;podNames&quot;`
+AutoScalingStatus string   `json:&quot;autoScalingStatus&quot;`
+&#125;
+
+type XyDaemonset struct &#123;
+metav1.TypeMeta   `json:&quot;,inline&quot;`
+metav1.ObjectMeta `json:&quot;metadata,omitempty&quot;`
+Spec   XyDaemonsetSpec   `json:&quot;spec,omitempty&quot;`
+Status XyDaemonsetStatus `json:&quot;status,omitempty&quot;`
+&#125;
+</code></pre>
+<ul>
+<li>执行命令如下命令生成 CRD 定义的 yaml 文件，生成文件位置在 <code>config/crd/bases/xytest.xy.io_xydaemonsets.yaml</code></li>
+</ul>
 <pre><code class="language-bash">make manifests
 </code></pre>
-<p>之后使用 kubectl 将此 CRD 定义 apply 到 k8s 上</p>
-<p>Use kubectl command to apply this CRD definition to k8s</p>
+<ul>
+<li>之后使用 kubectl 将此 CRD 定义 apply 到 k8s 上</li>
+</ul>
 <pre><code class="language-bash">kubectl apply -f config/crd/bases/xytest.xy.io_xydaemonsets.yaml
 </code></pre>
-<h2 id="编写Controller逻辑，并配置权限"><a href="#编写Controller逻辑，并配置权限" class="headerlink" title="编写Controller逻辑，并配置权限"></a>编写Controller逻辑，并配置权限</h2><h3 id="Edit-controllers-xydaemonset-controller-go-add-permissions-to-the-controller"><a href="#Edit-controllers-xydaemonset-controller-go-add-permissions-to-the-controller" class="headerlink" title="Edit controllers&#x2F;xydaemonset_controller.go, add permissions to the controller"></a>Edit controllers&#x2F;xydaemonset_controller.go, add permissions to the controller</h3><pre><code class="language-bash">// Add permissions to the controller
+<ul>
+<li>使用以下命令检查CRD是否apply成功</li>
+</ul>
+<pre><code class="language-bash">kubectl get crd | grep xydaemonsets
+</code></pre>
+<h2 id="编写Controller"><a href="#编写Controller" class="headerlink" title="编写Controller"></a>编写Controller</h2><ul>
+<li>在<code>/internal/controller/xydaemonset_controller.go</code>中添加node\pod所需权限</li>
+</ul>
+<pre><code class="language-bash">// Add permissions to the controller
 // +kubebuilder:rbac:groups=xytest.xy.io,resources=xydaemonsets,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=xytest.xy.io,resources=xydaemonsets/status,verbs=get;update;patch
 // +kubebuilder:rbac:groups=xytest.xy.io,resources=xydaemonsets/finalizers,verbs=update
@@ -243,16 +281,165 @@ kubebuilder create api --group xytest --version v1 --kind XyDaemonset
 // +kubebuilder:rbac:groups=core,resources=pods,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=&quot;&quot;,resources=pods/status,verbs=get
 </code></pre>
-<p>执行如下命令在本地运行 controller</p>
-<p>run controller service locally</p>
+<ul>
+<li>在<code>/internal/controller/xydaemonset_controller.go</code>中添加controller逻辑，Kubernetes控制器会监视资源的创建&#x2F;更新&#x2F;删除事件，并触发 Reconcile 函数作为响应。</li>
+</ul>
+<pre><code class="language-golang">func (r *XyDaemonsetReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) &#123;
+	_ = log.FromContext(ctx)
+	log.Log.Info(&quot;XyDaemonset Controller start reconcile&quot;)
+	// fetch the XyDaemonset instance
+	instance := &amp;xytestv1.XyDaemonset&#123;&#125;
+	if err := r.Client.Get(ctx, req.NamespacedName, instance); err != nil &#123;
+		if errors.IsNotFound(err) &#123;
+			return ctrl.Result&#123;&#125;, nil
+		&#125;
+		return ctrl.Result&#123;&#125;, err
+	&#125;
+
+	if instance.Status.AutoScalingStatus == &quot;Running&quot; &#123;
+		log.Log.Info(&quot;AutoScaling Running&quot;)
+		return ctrl.Result&#123;Requeue: true&#125;, nil
+	&#125;
+
+	specPodLength := instance.Spec.Replicas
+	//获取当前集群所有节点
+	allNodeList := &amp;corev1.NodeList&#123;&#125;
+	if err := r.Client.List(ctx, allNodeList); err != nil &#123;
+		return ctrl.Result&#123;&#125;, err
+	&#125;
+
+	currentStatus := xytestv1.XyDaemonsetStatus&#123;&#125;
+
+	for _, node := range allNodeList.Items &#123;
+		existingPods, err := r.fetchPodLenAndStatus(ctx, instance, node.Name)
+		if err != nil &#123;
+			return ctrl.Result&#123;&#125;, err
+		&#125;
+		existingPodNames, existingPodLength := r.filterPods(existingPods.Items)
+		if specPodLength != existingPodLength &#123;
+			if err := r.markRunning(instance, ctx); err != nil &#123;
+				return ctrl.Result&#123;&#125;, err
+			&#125;
+
+			// 比期望值小，需要 scale up create
+			if specPodLength &gt; existingPodLength &#123;
+				log.Log.Info(fmt.Sprintf(&quot;creating pod, current num %d &lt; expected num %d&quot;, existingPodLength, specPodLength))
+				pod := buildPod(instance, node.Name)
+				if err := controllerutil.SetControllerReference(instance, pod, r.Scheme); err != nil &#123;
+					log.Log.Error(err, &quot;scale up failed: SetControllerReference&quot;)
+					return ctrl.Result&#123;&#125;, err
+				&#125;
+				if err := r.Client.Create(ctx, pod); err != nil &#123;
+					log.Log.Error(err, &quot;scale up failed: create pod&quot;)
+					return ctrl.Result&#123;&#125;, err
+				&#125;
+				existingPodNames = append(existingPodNames, pod.Name)
+				existingPodLength += 1
+			&#125;
+
+			// 比期望值大，需要 scale down delete
+			if specPodLength &lt; existingPodLength &#123;
+				log.Log.Info(fmt.Sprintf(&quot;deleting pod, current num %d &gt; expected num %d&quot;, existingPodLength, specPodLength))
+				pod := existingPods.Items[0]
+				existingPods.Items = existingPods.Items[1:]
+				existingPodNames = removeString(existingPodNames, pod.Name)
+				existingPodLength -= 1
+				if err := r.Client.Delete(ctx, &amp;pod); err != nil &#123;
+					log.Log.Error(err, &quot;scale down faled&quot;)
+					return ctrl.Result&#123;&#125;, err
+				&#125;
+			&#125;
+		&#125;
+		currentStatus.AvailableReplicas += existingPodLength
+		currentStatus.PodNames = append(currentStatus.PodNames, existingPodNames...)
+	&#125;
+	// 更新当前instance状态
+	if instance.Status.AvailableReplicas != currentStatus.AvailableReplicas || !(reflect.DeepEqual(instance.Status.PodNames, currentStatus.PodNames)) &#123;
+		log.Log.Info(&quot;instance.Status.AvailableReplicas&quot;)
+		log.Log.Info(fmt.Sprint(instance.Status.PodNames))
+		log.Log.Info(&quot;currentStatus.PodNames&quot;)
+		log.Log.Info(fmt.Sprint(currentStatus.PodNames))
+		log.Log.Info(fmt.Sprintf(&quot;更新当前instance状态, instance.Status.AvailableReplicas %d : currentStatus.AvailableReplicas %d&quot;, instance.Status.AvailableReplicas, currentStatus.AvailableReplicas))
+		currentStatus.AutoScalingStatus = &quot;Sleep&quot;
+		instance.Status = currentStatus
+		if err := r.Client.Status().Update(ctx, instance); err != nil &#123;
+			log.Log.Error(err, &quot;update pod failed&quot;)
+			return ctrl.Result&#123;&#125;, err
+		&#125;
+	&#125;
+	return ctrl.Result&#123;Requeue: true&#125;, nil
+&#125;
+</code></pre>
+<ul>
+<li>编写测试脚本，本文暂未完善测试脚本，建议按Kubernetes官方要求根据定制CRD逻辑完善测试脚本</li>
+<li>执行如下命令在本地运行 controller</li>
+</ul>
 <pre><code class="language-bash">make run
 </code></pre>
-<h3 id="Build-install"><a href="#Build-install" class="headerlink" title="Build &amp; install"></a>Build &amp; install</h3><pre><code class="language-sh">make build
+<h3 id="Build-Controller"><a href="#Build-Controller" class="headerlink" title="Build Controller"></a>Build Controller</h3><ul>
+<li>kubebuilder默认使用kustomize构建项目，可先修改<code>/config/default/kustomization.yaml</code>，配置controller所在namespace和前缀</li>
+</ul>
+<pre><code class="language-sh"># Adds namespace to all resources.
+namespace: xy-diy
+
+# Value of this field is prepended to the
+# names of all resources, e.g. a deployment named
+# &quot;wordpress&quot; becomes &quot;alices-wordpress&quot;.
+# Note that it should also match with the prefix (text before &#39;-&#39;) of the namespace
+# field above.
+namePrefix: xy-
+</code></pre>
+<ul>
+<li>源码部署：将项目代码传至linux服务器，打包镜像并push到镜像仓库,make deploy部署到kubernetes集群</li>
+</ul>
+<pre><code class="language-sh">make build
 make docker-build
 make docker-push
 make deploy
 </code></pre>
-<h2 id="示例参数说明"><a href="#示例参数说明" class="headerlink" title="示例参数说明"></a>示例参数说明</h2><h3 id="Example-description"><a href="#Example-description" class="headerlink" title="Example description"></a>Example description</h3><pre><code class="language-yaml">apiVersion: xytest.xy.io/v1
+<ul>
+<li>本地打包部署：若本地开发环境为windows，可参考Makefile本地打包镜像，并在服务器使用kubectl apply -f manager.yaml</li>
+</ul>
+<pre><code class="language-sh">.PHONY: docker-build
+docker-build: ## Build docker image with the manager.
+	$(CONTAINER_TOOL) build -t $&#123;IMG&#125; .
+
+.PHONY: docker-push
+docker-push: ## Push docker image with the manager.
+	$(CONTAINER_TOOL) push $&#123;IMG&#125;
+</code></pre>
+<ul>
+<li>make deploy成功后可参考以下命令查看controller运行情况</li>
+</ul>
+<pre><code class="language-sh">root@k8s-master:~# kubectl get all -n xy-diy
+NAME                                         READY   STATUS        RESTARTS   AGE
+pod/xy-controller-manager-55db4ff865-xj8mv   1/1     Running       0          3m1s
+
+NAME                                            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/xy-controller-manager-metrics-service   ClusterIP   10.96.227.136   &lt;none&gt;        8443/TCP   10m
+
+NAME                                    READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/xy-controller-manager   1/1     1            1           10m
+
+NAME                                               DESIRED   CURRENT   READY   AGE
+replicaset.apps/xy-controller-manager-55db4ff865   1         1         1       3m1s
+root@k8s-master:~# kubectl logs -f --tail 500 pod/xy-controller-manager-55db4ff865-xj8mv -n xy-diy 
+2025-02-14T03:32:39Z    INFO    setup   starting manager
+2025-02-14T03:32:39Z    INFO    controller-runtime.metrics      Starting metrics server
+2025-02-14T03:32:39Z    INFO    setup   disabling http/2
+2025-02-14T03:32:39Z    INFO    starting server &#123;&quot;name&quot;: &quot;health probe&quot;, &quot;addr&quot;: &quot;[::]:8081&quot;&#125;
+I0214 03:32:39.669040       1 leaderelection.go:254] attempting to acquire leader lease xy-diy/54323e1d.xy.io...
+2025-02-14T03:32:40Z    INFO    controller-runtime.metrics      Serving metrics server  &#123;&quot;bindAddress&quot;: &quot;:8443&quot;, &quot;secure&quot;: true&#125;
+I0214 03:33:01.666350       1 leaderelection.go:268] successfully acquired lease xy-diy/54323e1d.xy.io
+2025-02-14T03:33:01Z    DEBUG   events  xy-controller-manager-55db4ff865-xj8mv_c5ba8639-d412-4767-bc62-9b4af2f69d8e became leader       &#123;&quot;type&quot;: &quot;Normal&quot;, &quot;object&quot;: &#123;&quot;kind&quot;:&quot;Lease&quot;,&quot;namespace&quot;:&quot;xy-diy&quot;,&quot;name&quot;:&quot;54323e1d.xy.io&quot;,&quot;uid&quot;:&quot;19ecc54d-7055-4efa-b584-28ed0917e025&quot;,&quot;apiVersion&quot;:&quot;coordination.k8s.io/v1&quot;,&quot;resourceVersion&quot;:&quot;52604&quot;&#125;, &quot;reason&quot;: &quot;LeaderElection&quot;&#125;
+2025-02-14T03:33:01Z    INFO    Starting EventSource    &#123;&quot;controller&quot;: &quot;xydaemonset&quot;, &quot;controllerGroup&quot;: &quot;xytest.xy.io&quot;, &quot;controllerKind&quot;: &quot;XyDaemonset&quot;, &quot;source&quot;: &quot;kind source: *v1.XyDaemonset&quot;&#125;
+2025-02-14T03:33:01Z    INFO    Starting Controller     &#123;&quot;controller&quot;: &quot;xydaemonset&quot;, &quot;controllerGroup&quot;: &quot;xytest.xy.io&quot;, &quot;controllerKind&quot;: &quot;XyDaemonset&quot;&#125;
+2025-02-14T03:33:01Z    INFO    Starting workers        &#123;&quot;controller&quot;: &quot;xydaemonset&quot;, &quot;controllerGroup&quot;: &quot;xytest.xy.io&quot;, &quot;controllerKind&quot;: &quot;XyDaemonset&quot;, &quot;worker count&quot;: 1&#125;
+</code></pre>
+<h2 id="测试示例参数说明"><a href="#测试示例参数说明" class="headerlink" title="测试示例参数说明"></a>测试示例参数说明</h2><ul>
+<li>构建测试CR</li>
+</ul>
+<pre><code class="language-yaml">apiVersion: xytest.xy.io/v1
 kind: XyDaemonset
 metadata:
 labels:
@@ -265,21 +452,46 @@ command: [&quot;sleep&quot;, &quot;3600&quot;] # 容器启动命令
 image: busybox  #容器镜像
 replicas: 1 #每个节点上的副本数
 </code></pre>
-<h2 id="XyDaemonsetStatus属性说明"><a href="#XyDaemonsetStatus属性说明" class="headerlink" title="XyDaemonsetStatus属性说明"></a>XyDaemonsetStatus属性说明</h2><h3 id="XyDaemonsetStatus-description"><a href="#XyDaemonsetStatus-description" class="headerlink" title="XyDaemonsetStatus description"></a>XyDaemonsetStatus description</h3><ul>
-<li>AvailableReplicas：当前运行中的副本数</li>
-<li>PodNames：当前运行中的Pod名称</li>
-<li>AutoScalingStatus：是否正在扩缩容</li>
+<ul>
+<li>部署测试CR</li>
 </ul>
-<pre><code class="language-bash">// XyDaemonsetStatus defines the observed state of XyDaemonset.
-type XyDaemonsetStatus struct &#123;
-// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-// Important: Run &quot;make&quot; to regenerate code after modifying this file
-
-	AvailableReplicas int      `json:&quot;availableReplicas&quot;`
-	PodNames          []string `json:&quot;podNames&quot;`
-	AutoScalingStatus string   `json:&quot;autoScalingStatus&quot;`
-&#125;
+<pre><code class="language-shell">kubectl apply -f /config/samples/xytest_v1_xydaemonset.yaml
+kubectl get xydaemonset -n xy-diy -o yaml
+apiVersion: v1
+items:
+- apiVersion: xytest.xy.io/v1
+  kind: XyDaemonset
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        &#123;&quot;apiVersion&quot;:&quot;xytest.xy.io/v1&quot;,&quot;kind&quot;:&quot;XyDaemonset&quot;,&quot;metadata&quot;:&#123;&quot;annotations&quot;:&#123;&#125;,&quot;labels&quot;:&#123;&quot;app.kubernetes.io/managed-by&quot;:&quot;kustomize&quot;,&quot;app.kubernetes.io/name&quot;:&quot;data&quot;&#125;,&quot;name&quot;:&quot;xydaemonset-busybox&quot;,&quot;namespace&quot;:&quot;xy-diy&quot;&#125;,&quot;spec&quot;:&#123;&quot;command&quot;:[&quot;sleep&quot;,&quot;3600&quot;],&quot;image&quot;:&quot;busybox&quot;,&quot;replicas&quot;:1&#125;&#125;
+    creationTimestamp: &quot;2025-02-14T05:28:25Z&quot;
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kustomize
+      app.kubernetes.io/name: data
+    name: xydaemonset-busybox
+    namespace: xy-diy
+    resourceVersion: &quot;73897&quot;
+    uid: db111ed0-93bd-4879-a9a3-02e26a846957
+  spec:
+    command:
+    - sleep
+    - &quot;3600&quot;
+    image: busybox
+    replicas: 1
+  status:
+    autoScalingStatus: Sleep
+    availableReplicas: 3
+    podNames:
+    - xydaemonset-busybox-72zqm
+    - xydaemonset-busybox-c748t
+    - xydaemonset-busybox-9jwzp
+kind: List
+metadata:
+  resourceVersion: &quot;&quot;
 </code></pre>
+<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><p><a target="_blank" rel="noopener" href="https://github.com/Stringxy/kubebuilder-operator-example">https://github.com/Stringxy/kubebuilder-operator-example</a></p>
 
     </div>
     
