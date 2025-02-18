@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Windows11下VirtualBox搭建Ubuntu22.04 | Stringxy Zone</title>
+    <title>Volcano扩展——扩展一个调度器插件 | Stringxy Zone</title>
     <meta name="author" content="Utada Wendic" />
     <meta name="description" content="Welcome to Stringxy Zone! I am Utada Wendic,a full stack programmer who started with Java. This website is used to record notes on learning cloud native technology and LLM development." />
     <meta name="keywords" content="" />
@@ -163,14 +163,14 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>Windows11下VirtualBox搭建Ubuntu22.04</h1>
+        <h1>Volcano扩展——扩展一个调度器插件</h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2025/2/8
+            2025/2/17
         </span>
         
         <span class="category">
@@ -191,15 +191,22 @@
             
             <span class="tag">
                 
-                <a href="/tags/VirtualBox/" style="color: #ff7d73">
-                    VirtualBox
+                <a href="/tags/Kubernetes/" style="color: #03a9f4">
+                    Kubernetes
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Ubuntu/" style="color: #ffa2c4">
-                    Ubuntu
+                <a href="/tags/Golang/" style="color: #ff7d73">
+                    Golang
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Volcano/" style="color: #00bcd4">
+                    Volcano
                 </a>
             </span>
             
@@ -208,79 +215,183 @@
     </div>
     
     <div class="content" v-pre>
-        <h1 id="Windows11下VirtualBox搭建Ubuntu22-04"><a href="#Windows11下VirtualBox搭建Ubuntu22-04" class="headerlink" title="Windows11下VirtualBox搭建Ubuntu22.04"></a>Windows11下VirtualBox搭建Ubuntu22.04</h1><h3 id="1-下载Ubuntu镜像"><a href="#1-下载Ubuntu镜像" class="headerlink" title="1. 下载Ubuntu镜像"></a>1. 下载Ubuntu镜像</h3><p>从清华大学开源软件镜像站下载Ubuntu22.04镜像：<br><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/">https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/</a></p>
-<h3 id="2-安装Ubuntu"><a href="#2-安装Ubuntu" class="headerlink" title="2. 安装Ubuntu"></a>2. 安装Ubuntu</h3><ul>
-<li>设置节点名称：如ubuntu-master</li>
-<li>设置节点文件夹：默认C盘，可换到其他磁盘</li>
-<li>设置镜像文件：选择下载的镜像文件</li>
+        <h1 id="Volcano"><a href="#Volcano" class="headerlink" title="Volcano"></a>Volcano</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://volcano.sh/zh/docs/">官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/volcano-sh/volcano">Github</a></li>
+<li>Volcano是CNCF 下首个也是唯一的基于Kubernetes的容器批量计算平台，主要用于高性能计算场景。它提供了Kubernetes目前缺 少的一套机制，这些机制通常是机器学习大数据应用、科学计算、特效渲染等多种高性能工作负载所需的。作为一个通用批处理平台，Volcano与几乎所有的主流计算框 架无缝对接，如Spark 、TensorFlow 、PyTorch 、 Flink 、Argo 、MindSpore 、 PaddlePaddle，Ray等。它还提供了包括异构设备调度，网络拓扑感知调度，多集群调度，在离线混部调度等多种调度能力。Volcano的设计 理念建立在15年来多种系统和平台大规模运行各种高性能工作负载的使用经验之上，并结合来自开源社区的最佳思想和实践。</li>
+<li>插件开发官方文档<a target="_blank" rel="noopener" href="https://github.com/Stringxy/volcano-custom-plugin-demo/blob/main/docs/design/custom-plugin.md">https://github.com/Stringxy/volcano-custom-plugin-demo/blob/main/docs/design/custom-plugin.md</a></li>
+</ul>
+<h2 id="新增插件说明"><a href="#新增插件说明" class="headerlink" title="新增插件说明"></a>新增插件说明</h2><ul>
+<li>本文新增了一个Print Action与logPrint Plugin，Job Pending&amp;Ready时，调度器将会打印日志</li>
+</ul>
+<h2 id="环境-Environment"><a href="#环境-Environment" class="headerlink" title="环境 Environment"></a>环境 Environment</h2><ul>
+<li>volcano: 1.11.0</li>
+<li>docker: v26.1.3</li>
+<li>docker buildx: v0.20.1</li>
+<li>kubernetes: v1.27.1</li>
 </ul>
 <span id="more"></span>
-<p><img src="/images/img.png" alt="img.png"></p>
-<ul>
-<li>设置初始化账号</li>
-<li>设置节点域名<br><img src="/images/img_1.png" alt="img_1.png"></li>
-<li>设置节点硬件配置：本文主要用来搭建Kubernetes集群，因此配置内存为2G，CPU为2核，硬盘为20G<br><img src="/images/img_2.png" alt="img_2.png"><br><img src="/images/img_3.png" alt="img_3.png"></li>
-<li>完成配置，等待Ubuntu自动安装，安装完成后，Ubuntu会自动重启，用预设账号登录系统<br><img src="/images/img_5.png" alt="img_5.png"></li>
-<li>登录成功后，先将系统语言设置为中文，否则可能打不开Terminal<br><img src="/images/img_6.png" alt="img_6.png"></li>
-<li>进入Terminal,使用su切换到root账户</li>
-<li>安装vim</li>
-<li>修改&#x2F;etc&#x2F;sudoers配置文件，将预设账户的权限改为ALL&#x3D;(ALL:ALL) ALL</li>
+<hr>
+<h2 id="开发环境准备"><a href="#开发环境准备" class="headerlink" title="开发环境准备"></a>开发环境准备</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/volcano-sh/volcano/blob/master/docs/development/prepare-for-development.md">官方开发环境准备文档</a></li>
+<li>二次开发Volcano除了官方Github文档上描述的环境要求外，还需要安装docker buildx插件，可在<a target="_blank" rel="noopener" href="https://github.com/docker/buildx">官方github</a>下载对应Release版本，本文下载的是buildx-v0.20.1.linux-amd64</li>
+<li>将其改名后放入~&#x2F;.docker&#x2F;cli-plugins目录下，并赋予执行权限</li>
 </ul>
-<pre><code class="language-bash">su 
-apt-get update
-apt-get install vim -y
-vim /etc/sudoers
+<pre><code class="language-bash">root@k8s-master:~/.docker/cli-plugins# ls
+docker-buildx
+#使用命令验证是否安装成功
+docker buildx version
 </code></pre>
-<p><img src="/images/img_7.png" alt="img_7.png"></p>
-<h3 id="3-配置网络"><a href="#3-配置网络" class="headerlink" title="3. 配置网络"></a>3. 配置网络</h3><h4 id="配置网络真的是大坑，哪位大牛在网上说的配双网卡，我真的谢谢您"><a href="#配置网络真的是大坑，哪位大牛在网上说的配双网卡，我真的谢谢您" class="headerlink" title="配置网络真的是大坑，哪位大牛在网上说的配双网卡，我真的谢谢您"></a>配置网络真的是大坑，哪位大牛在网上说的配双网卡，我真的谢谢您</h4><ul>
-<li>修改Ubuntu网络配置文件，为节点配置静态IP</li>
+<h2 id="扩展Action"><a href="#扩展Action" class="headerlink" title="扩展Action"></a>扩展Action</h2><ul>
+<li>在pkg\scheduler\api\types.go中定义PrintFn</li>
 </ul>
-<pre><code class="language-bash">vim /etc/netplan/01-network-manager-all.yaml
------------
-# Let NetworkManager manage all devices on this system
-network:
-  version: 2
-  renderer: NetworkManager
-  ethernets:
-    enp0s3:
-      dhcp4: no
-      addresses:
-        - 192.168.112.176/24
-      gateway4: 192.168.112.1
-      nameservers:
-        addresses: [192.168.112.1]
----------------
-netplan apply
+<pre><code class="language-golang">  // PrintFn is the func declaration used to check whether the job can be print
+  type PrintFn func([]*JobInfo)
 </code></pre>
 <ul>
-<li>配置虚拟机网卡<br><img src="/images/img_4.png" alt="img_4.png"></li>
-<li>此时Windows应该可以ping通Ubuntu的IP</li>
-<li>但是Ubuntu可能还Ping不通Windows的，需要给Windows设置如下图防火墙入站规则<br><img src="/images/img_11.png" alt="img_11.png"></li>
-<li>网络通了之后，我还想用ssh工具连接到Ubuntu，发现此时ssh不通，需要在Ubuntu下开启ssh\禁用firewall</li>
+<li>在pkg\scheduler\framework\session.go的Session结构体中定义printFns</li>
+<li>在pkg\scheduler\framework\session_plugins.go中编写PrintJobInfo方法</li>
+<li>PrintJobInfo方法遍历Session中的Tiers，然后遍历每个Tier中的插件，并调用对应的printFns函数。</li>
 </ul>
-<pre><code class="language-bash">su
-apt-get install openssh-server -y
-ufw disable
-</code></pre>
-<h3 id="4-同步时间"><a href="#4-同步时间" class="headerlink" title="4. 同步时间"></a>4. 同步时间</h3><ul>
-<li>此时可能发现Ubuntu的时间不对，需要同步时间，用以下命令配置时区</li>
-</ul>
-<pre><code class="language-bash"># 设置为亚洲的上海时区
-sudo timedatectl set-timezone Asia/Shanghai
-# 重启时间同步服务
-sudo systemctl restart systemd-timesyncd.service
-# 确保时间同步服务正常运行
-timedatectl status
+<pre><code class="language-golang">func (ssn *Session) PrintJobInfo(job []*api.JobInfo) &#123;
+    for _, tier := range ssn.Tiers &#123;
+        for _, plugin := range tier.Plugins &#123;
+            fn, found := ssn.printFns[plugin.Name]
+            if !found &#123;
+                continue
+            &#125;
+            fn(job)
+        &#125;
+    &#125;
+&#125;
 </code></pre>
 <ul>
-<li>用以下命令同步时间</li>
+<li>在以下位置pkg\scheduler\actions新建print目录，并新建print.go、print_test.go文件</li>
+<li>print.go按Action接口要求实现</li>
+<li>Name() string: 返回该 Action 的唯一名称。</li>
+<li>Initialize(): 初始化分配器插件。</li>
+<li>Execute(ssn *Session): 执行资源分配，将集群的资源分配到每个队列中。参数 ssn 是一个指向 Session 类型的指针。</li>
+<li>UnInitialize(): 反初始化分配器插件，通常用于清理资源或撤销初始化操作。</li>
 </ul>
-<pre><code class="language-bash">sudo apt-get install ntpdate -y
-ntpdate time.windows.com
-#检查时间
-date -R
+<pre><code class="language-golang">type Action struct &#123;
+    session *framework.Session
+&#125;
+
+func New() *Action &#123;
+    return &amp;Action&#123;&#125;
+&#125;
+
+func (print *Action) Name() string &#123;
+    return &quot;print&quot;
+&#125;
+
+func (print *Action) Initialize() &#123;&#125;
+
+func (print *Action) Execute(ssn *framework.Session) &#123;
+    klog.V(5).Infof(&quot;Enter Print Action ...&quot;)
+    defer klog.V(5).Infof(&quot;Leaving Action ...&quot;)
+    jobs := make([]*api.JobInfo, 0)
+    for _, job := range ssn.Jobs &#123;
+        jobs = append(jobs, job)
+    &#125;
+    ssn.PrintJobInfo(jobs)
+&#125;
+
+func (alloc *Action) UnInitialize() &#123;&#125;
 </code></pre>
-<h4 id="至此，可以开始用Ubuntu搞事啦"><a href="#至此，可以开始用Ubuntu搞事啦" class="headerlink" title="至此，可以开始用Ubuntu搞事啦~"></a>至此，可以开始用Ubuntu搞事啦~</h4>
+<ul>
+<li>编写print_test.go测试用例</li>
+</ul>
+<h2 id="扩展Plugin"><a href="#扩展Plugin" class="headerlink" title="扩展Plugin"></a>扩展Plugin</h2><ul>
+<li>在以下位置pkg\scheduler\plugins新建logprint插件目录</li>
+<li>logprint.go主要在OnSessionOpen实现loggingFn,并注册到Action的PrintFn中</li>
+</ul>
+<pre><code class="language-golang">func (logPrint *logPrint) OnSessionOpen(ssn *framework.Session) &#123;
+    klog.V(5).Infof(&quot;Enter logPrint plugin ...&quot;)
+    defer func() &#123;
+        klog.V(5).Infof(&quot;Leaving logPrint plugin. %s ...&quot;, logPrint.pluginArguments)
+    &#125;()
+    loggingFn := func(jobs []*api.JobInfo) &#123;
+    for _, job := range jobs &#123;
+        if job.IsPending() &#123;
+            klog.V(1).Infof(&quot;Job %s/%s is pending, try to schedule it on node %s&quot;, job.Namespace, job.Name)
+        &#125;
+        if job.IsReady() &#123;
+            klog.V(1).Infof(&quot;Job %s/%s is ready, detail info : %s&quot;, job.Namespace, job.Name, job.String())
+        &#125;
+    &#125;
+&#125;
+
+	ssn.AddPrintFn(PluginName, loggingFn)
+&#125;
+</code></pre>
+<ul>
+<li>编写logprint_test.go测试用例</li>
+</ul>
+<h2 id="插件部署"><a href="#插件部署" class="headerlink" title="插件部署"></a>插件部署</h2><ul>
+<li>重新打包基于ubuntu的volcano镜像，使他支持扩展插件</li>
+</ul>
+<pre><code class="language-bash">make images SUPPORT_PLUGINS=yes
+</code></pre>
+<ul>
+<li>如果你想使用 ubuntu 作为基础镜像，你可以使用 gnu-libc 来构建插件。由于大多数 Linux 操作系统都有 gnu-libc，你可以在本地直接构建插件。</li>
+</ul>
+<pre><code class="language-bash"># default CC is gcc
+CGO_ENABLED=1 go build -o plugins/logprint/logprint.so -buildmode=plugin logprint.go
+</code></pre>
+<ul>
+<li>构建新的调度器镜像</li>
+</ul>
+<pre><code class="language-dockerfile">#Dockerfile
+FROM volcanosh/vc-scheduler:latest
+
+COPY plugins plugins
+</code></pre>
+<pre><code>docker build -t volcanosh/vc-scheduler:magic-plugins .
+</code></pre>
+<ul>
+<li>指定插件目录</li>
+</ul>
+<pre><code class="language-yaml">...
+containers:
+- name: volcano-scheduler
+image: volcanosh/vc-scheduler:magic-plugins
+args:
+- --logtostderr
+- --scheduler-conf=/volcano.scheduler/volcano-scheduler.conf
+- --enable-healthz=true
+- --enable-metrics=true
+- -v=3
+- --plugins-dir=plugins  # specify plugins dir path
+- 2&gt;&amp;1
+</code></pre>
+<ul>
+<li>更新 volcano-scheduler-configmap</li>
+</ul>
+<pre><code>kubectl edit cm volcano-scheduler-configmap -n volcano-system
+</code></pre>
+<pre><code class="language-yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: volcano-scheduler-configmap
+  namespace: volcano-system
+data:
+  volcano-scheduler.conf: |
+    actions: &quot;print, enqueue, allocate, backfill&quot;
+    tiers:
+    - plugins:
+      - name: priority
+      - name: gang
+      - name: conformance
+      - name: logprint       # activate your custom plugin
+    - plugins:
+      - name: drf
+      - name: predicates
+      - name: proportion
+      - name: nodeorder
+      - name: binpack
+</code></pre>
+
     </div>
     
     
