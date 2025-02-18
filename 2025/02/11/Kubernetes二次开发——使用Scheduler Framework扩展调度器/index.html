@@ -191,14 +191,14 @@
             
             <span class="tag">
                 
-                <a href="/tags/Kubernetes/" style="color: #00a596">
+                <a href="/tags/Kubernetes/" style="color: #00bcd4">
                     Kubernetes
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" style="color: #03a9f4">
+                <a href="/tags/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" style="color: #ff7d73">
                     Kubernetes二次开发
                 </a>
             </span>
@@ -215,15 +215,7 @@
     </div>
     
     <div class="content" v-pre>
-        <h1 id="k8s-自定义调度器插件之-Scheduler-Framework"><a href="#k8s-自定义调度器插件之-Scheduler-Framework" class="headerlink" title="k8s 自定义调度器插件之 Scheduler Framework"></a>k8s 自定义调度器插件之 Scheduler Framework</h1><p>实现一个读取Metrics-Server指标打分的简单Scheduler Extender。</p>
-<p>功能如下：</p>
-<ul>
-<li>1）过滤阶段：仅调度到带有 Label <code>filter.xy.com</code> 的节点上</li>
-<li>2）打分阶段：读取Metrics-Server指标，CPU利用率最低的节点为优</li>
-</ul>
-<span id="more"></span>
-
-<h2 id="Scheduler-Extender-与-Scheduler-Framework"><a href="#Scheduler-Extender-与-Scheduler-Framework" class="headerlink" title="Scheduler Extender 与 Scheduler Framework"></a>Scheduler Extender 与 Scheduler Framework</h2><h3 id="Scheduler-Framework新增调度器"><a href="#Scheduler-Framework新增调度器" class="headerlink" title="Scheduler Framework新增调度器"></a>Scheduler Framework新增调度器</h3><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+        <h1 id="k8s-自定义调度器插件之-Scheduler-Framework"><a href="#k8s-自定义调度器插件之-Scheduler-Framework" class="headerlink" title="k8s 自定义调度器插件之 Scheduler Framework"></a>k8s 自定义调度器插件之 Scheduler Framework</h1><h2 id="Scheduler-Extender-与-Scheduler-Framework"><a href="#Scheduler-Extender-与-Scheduler-Framework" class="headerlink" title="Scheduler Extender 与 Scheduler Framework"></a>Scheduler Extender 与 Scheduler Framework</h2><h3 id="Scheduler-Framework新增调度器"><a href="#Scheduler-Framework新增调度器" class="headerlink" title="Scheduler Framework新增调度器"></a>Scheduler Framework新增调度器</h3><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
 <li>性能好：由于不依赖外部插件或 HTTP 调用，调度流程的延迟相对较低，适合对性能要求较高的场景。</li>
 <li>复用性高：可复用现有的调度插件，如 scheduler-plugins，大大降低了开发难度，提升了开发效率。</li>
 </ul>
@@ -238,6 +230,8 @@
 <h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><ul>
 <li>性能差：调度请求需要经过 HTTP 调用，增加了调用延迟，对性能可能有影响。<br>通过以上对比，可以根据具体场景和需求选择合适的方法。</li>
 </ul>
+<span id="more"></span>
+
 <h2 id="通过-Scheduler-Framework-扩展主要步骤"><a href="#通过-Scheduler-Framework-扩展主要步骤" class="headerlink" title="通过 Scheduler Framework 扩展主要步骤"></a>通过 Scheduler Framework 扩展主要步骤</h2><ul>
 <li>1）克隆官方调度器代码scheduler-plugins</li>
 <li>2）在pkg目录下新建插件目录及代码，通过下表扩展点扩展特殊逻辑</li>

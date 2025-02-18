@@ -242,7 +242,7 @@
         
         <span class="tag">
             
-            <a href="/tags/Kubernetes/" style="color: #00a596">Kubernetes</a>
+            <a href="/tags/Kubernetes/" style="color: #ff7d73">Kubernetes</a>
         </span>
         
         <span class="tag">
@@ -252,7 +252,7 @@
         
         <span class="tag">
             
-            <a href="/tags/Volcano/" style="color: #03a9f4">Volcano</a>
+            <a href="/tags/Volcano/" style="color: #00a596">Volcano</a>
         </span>
         
     </div>
@@ -286,11 +286,20 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <h1 id="k8s-自定义调度器插件之-Scheduler-Framework"><a href="#k8s-自定义调度器插件之-Scheduler-Framework" class="headerlink" title="k8s 自定义调度器插件之 Scheduler Framework"></a>k8s 自定义调度器插件之 Scheduler Framework</h1><p>实现一个读取Metrics-Server指标打分的简单Scheduler Extender。</p>
-<p>功能如下：</p>
-<ul>
-<li>1）过滤阶段：仅调度到带有 Label <code>filter.xy.com</code> 的节点上</li>
-<li>2）打分阶段：读取Metrics-Server指标，CPU利用率最低的节点为优</li>
+            <h1 id="k8s-自定义调度器插件之-Scheduler-Framework"><a href="#k8s-自定义调度器插件之-Scheduler-Framework" class="headerlink" title="k8s 自定义调度器插件之 Scheduler Framework"></a>k8s 自定义调度器插件之 Scheduler Framework</h1><h2 id="Scheduler-Extender-与-Scheduler-Framework"><a href="#Scheduler-Extender-与-Scheduler-Framework" class="headerlink" title="Scheduler Extender 与 Scheduler Framework"></a>Scheduler Extender 与 Scheduler Framework</h2><h3 id="Scheduler-Framework新增调度器"><a href="#Scheduler-Framework新增调度器" class="headerlink" title="Scheduler Framework新增调度器"></a>Scheduler Framework新增调度器</h3><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>性能好：由于不依赖外部插件或 HTTP 调用，调度流程的延迟相对较低，适合对性能要求较高的场景。</li>
+<li>复用性高：可复用现有的调度插件，如 scheduler-plugins，大大降低了开发难度，提升了开发效率。</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>多个调度器可能会冲突：比如多个调度器同时调度了一个 Pod 到节点上，先启动的 Pod 把资源占用了，后续的 Pod 无法启动。</li>
+</ul>
+<h3 id="Scheduler-Extender基于http服务扩展调度器"><a href="#Scheduler-Extender基于http服务扩展调度器" class="headerlink" title="Scheduler Extender基于http服务扩展调度器"></a>Scheduler Extender基于http服务扩展调度器</h3><h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>实现简单：无需重新编译调度器，通过配置 KubeSchedulerConfiguration 创建一个外部 HTTP 服务来实现自定义逻辑。</li>
+<li>零侵入性：不需要修改或重构调度器的核心代码，可快速上线新的调度逻辑。</li>
+<li>灵活性较高：原有调度器和自定义逻辑相对独立，方便维护与测试。</li>
+</ul>
+<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>性能差：调度请求需要经过 HTTP 调用，增加了调用延迟，对性能可能有影响。<br>通过以上对比，可以根据具体场景和需求选择合适的方法。</li>
 </ul>
             
         </div>
@@ -305,17 +314,17 @@
         
         <span class="tag">
             
-            <a href="/tags/Kubernetes/" style="color: #03a9f4">Kubernetes</a>
+            <a href="/tags/Kubernetes/" style="color: #ff7d73">Kubernetes</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" style="color: #00bcd4">Kubernetes二次开发</a>
+            <a href="/tags/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" style="color: #03a9f4">Kubernetes二次开发</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Golang/" style="color: #ff7d73">Golang</a>
+            <a href="/tags/Golang/" style="color: #ffa2c4">Golang</a>
         </span>
         
     </div>
@@ -368,17 +377,17 @@
         
         <span class="tag">
             
-            <a href="/tags/Kubernetes/" style="color: #00bcd4">Kubernetes</a>
+            <a href="/tags/Kubernetes/" style="color: #ffa2c4">Kubernetes</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" style="color: #ff7d73">Kubernetes二次开发</a>
+            <a href="/tags/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" style="color: #03a9f4">Kubernetes二次开发</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Golang/" style="color: #00bcd4">Golang</a>
+            <a href="/tags/Golang/" style="color: #ffa2c4">Golang</a>
         </span>
         
     </div>
@@ -431,17 +440,17 @@
         
         <span class="tag">
             
-            <a href="/tags/Kubernetes/" style="color: #ff7d73">Kubernetes</a>
+            <a href="/tags/Kubernetes/" style="color: #03a9f4">Kubernetes</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" style="color: #00bcd4">Kubernetes二次开发</a>
+            <a href="/tags/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" style="color: #ff7d73">Kubernetes二次开发</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Golang/" style="color: #ffa2c4">Golang</a>
+            <a href="/tags/Golang/" style="color: #00a596">Golang</a>
         </span>
         
     </div>
@@ -518,22 +527,22 @@
         
         <span class="tag">
             
-            <a href="/tags/VirtualBox/" style="color: #ff7d73">VirtualBox</a>
+            <a href="/tags/VirtualBox/" style="color: #00a596">VirtualBox</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Ubuntu/" style="color: #ffa2c4">Ubuntu</a>
+            <a href="/tags/Ubuntu/" style="color: #ff7d73">Ubuntu</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Kubernetes/" style="color: #ff7d73">Kubernetes</a>
+            <a href="/tags/Kubernetes/" style="color: #00bcd4">Kubernetes</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/Kube-OVN/" style="color: #03a9f4">Kube-OVN</a>
+            <a href="/tags/Kube-OVN/" style="color: #ffa2c4">Kube-OVN</a>
         </span>
         
     </div>
