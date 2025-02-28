@@ -191,21 +191,21 @@
             
             <span class="tag">
                 
-                <a href="/tags/VirtualBox/" style="color: #00a596">
+                <a href="/tags/VirtualBox/" style="color: #ff7d73">
                     VirtualBox
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Ubuntu/" style="color: #ffa2c4">
+                <a href="/tags/Ubuntu/" style="color: #03a9f4">
                     Ubuntu
                 </a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/Kubernetes/" style="color: #00a596">
+                <a href="/tags/Kubernetes/" style="color: #ff7d73">
                     Kubernetes
                 </a>
             </span>
@@ -219,7 +219,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/RKE2/" style="color: #00bcd4">
+                <a href="/tags/RKE2/" style="color: #ff7d73">
                     RKE2
                 </a>
             </span>
@@ -277,6 +277,8 @@
    curl -sfL https://rancher-mirror.rancher.cn/rke2/install.sh | INSTALL_RKE2_MIRROR=cn sh -
    systemctl enable rke2-server.service
    systemctl start rke2-server.service
+   # 查看报错日志
+   journalctl -u rke2-server -f
 </code></pre>
 <ul>
 <li>ps,默认安装RKE2的最新版本，若需要指定Kubernetes版本可参考<a target="_blank" rel="noopener" href="https://docs.rke2.io/zh/release-notes/v1.32.X">RKE2官方版本说明</a>，使用INSTALL_RKE2_CHANNEL参数指定版本进行安装。</li>
@@ -309,9 +311,7 @@ docker.io/rancher/hardened-flannel:v0.26.3-build20250108
 <li>也可以直接下载RKE2 github release中提供的镜像包rke2-images.linux-amd64.tar.gz，使用docker load批量导入镜像。</li>
 <li>下载安装脚本，运行安装脚本，安装RKE2。</li>
 </ul>
-<pre><code class="language-bash">  curl -sfL https://rancher-mirror.rancher.cn/rke2/install.sh --output install.sh
-  chmod +x install.sh
-  INSTALL_RKE2_CHANNEL=v1.32.1 ./install.sh
+<pre><code class="language-bash">  curl -sfL https://rancher-mirror.rancher.cn/rke2/install.sh | INSTALL_RKE2_MIRROR=cn INSTALL_RKE2_CHANNEL=v1.32.1 sh -
 </code></pre>
 <h4 id="2-artifacts目录安装方式"><a href="#2-artifacts目录安装方式" class="headerlink" title="2. artifacts目录安装方式"></a>2. artifacts目录安装方式</h4><ul>
 <li>从 releases 页面将安装脚本、rke2、rke2-images 和 sha256sum 存档下载到一个目录中，使用INSTALL_RKE2_ARTIFACT_PATH参数挂载目录安装</li>
@@ -330,7 +330,7 @@ INSTALL_RKE2_ARTIFACT_PATH=/root/rke2-artifacts sh install.sh
 <li>Flannel CNI plugin</li>
 </ul>
 <h4 id="如果要使用其他CNI框架可修改配置文件-etc-rancher-rke2-config-yaml，将cni改为none"><a href="#如果要使用其他CNI框架可修改配置文件-etc-rancher-rke2-config-yaml，将cni改为none" class="headerlink" title="如果要使用其他CNI框架可修改配置文件&#x2F;etc&#x2F;rancher&#x2F;rke2&#x2F;config.yaml，将cni改为none"></a>如果要使用其他CNI框架可修改配置文件&#x2F;etc&#x2F;rancher&#x2F;rke2&#x2F;config.yaml，将cni改为none</h4><pre><code class="language-bash"># /etc/rancher/rke2/config.yaml
-cni: canal
+cni: none
 </code></pre>
 <h3 id="Kube-OVN"><a href="#Kube-OVN" class="headerlink" title="Kube-OVN"></a>Kube-OVN</h3><ul>
 <li>Kube-OVN的部署详见【Kube-OVN——安装&amp;部署】</li>
