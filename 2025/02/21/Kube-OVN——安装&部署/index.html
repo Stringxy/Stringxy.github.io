@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Tags: Volcano | Stringxy Zone</title>
+    <title>Kube-OVN——安装&amp;部署 | Stringxy Zone</title>
     <meta name="author" content="Utada Wendic" />
     <meta name="description" content="Welcome to Stringxy Zone! I am Utada Wendic,a full stack programmer who started with Java. This website is used to record notes on learning cloud native technology and LLM development." />
     <meta name="keywords" content="" />
@@ -42,6 +42,10 @@
 
 
 <script src="/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -157,165 +161,174 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
+            <div class="article">
+    <div>
+        <h1>Kube-OVN——安装&amp;部署</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/2/21
+        </span>
         
-        
-        
-        <span>
-            <a href="/tags/VirtualBox/" style="background: #ff7d73">
+        <span class="category">
+            <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/">
                 <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                VirtualBox
+                云原生
             </a>
         </span>
         
         
-        
-        <span>
-            <a href="/tags/Ubuntu/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                Ubuntu
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/Kubernetes/" style="color: #00a596">
+                    Kubernetes
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Golang/" style="color: #03a9f4">
+                    Golang
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/SDN/" style="color: #00a596">
+                    SDN
+                </a>
+            </span>
+            
         </span>
-        
-        
-        
-        <span>
-            <a href="/tags/Kubernetes/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                Kubernetes
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/Kube-OVN/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                Kube-OVN
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/Kubernetes%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                Kubernetes二次开发
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/Golang/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                Golang
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/Volcano/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                Volcano
-            </a>
-        </span>
-        
-        
-        
-        
-        
-        <span>
-            <a href="/tags/SDN/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                SDN
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/RKE2/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                RKE2
-            </a>
-        </span>
-        
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2025/2/17</div>
-            <a href="/2025/02/17/Volcano%E6%89%A9%E5%B1%95%E2%80%94%E2%80%94%E6%89%A9%E5%B1%95%E4%B8%80%E4%B8%AA%E8%B0%83%E5%BA%A6%E5%99%A8%E6%8F%92%E4%BB%B6/">
-                <h3>Volcano扩展——扩展一个调度器插件</h3>
-            </a>
-            <div class="info">
-                
-                <span class="category">
-                    <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/">
-                        <span class="icon">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </span>
-                        云原生
-                    </a>
-                </span>
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/Kubernetes/" style="color: #00a596">
-                            Kubernetes
-                        </a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/Golang/" style="color: #03a9f4">
-                            Golang
-                        </a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/Volcano/" style="color: #ff7d73">
-                            Volcano
-                        </a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <h1 id="Kube-OVN——安装-部署"><a href="#Kube-OVN——安装-部署" class="headerlink" title="Kube-OVN——安装&amp;部署"></a>Kube-OVN——安装&amp;部署</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>Kube-OVN 是一个符合 CNI 规范的网络组件，其运行需要依赖 Kubernetes 环境及对应的内核网络模块。 以下是通过测试的操作系统和软件版本，环境配置和所需要开放的端口信息。</p>
+<h3 id="软件版本"><a href="#软件版本" class="headerlink" title="软件版本"></a>软件版本</h3><p>Kubernetes &gt;&#x3D; 1.23。<br>Docker &gt;&#x3D; 1.12.6, Containerd &gt;&#x3D; 1.3.4。<br>操作系统: CentOS 7&#x2F;8, Ubuntu 16.04&#x2F;18.04&#x2F;20.04。</p>
+<ul>
+<li>其他 Linux 发行版，需要检查一下内核模块是否存在 geneve, openvswitch, ip_tables 和 iptable_nat，Kube-OVN 正常工作依赖上述模块。</li>
+</ul>
+<pre><code class="language-bash">modinfo geneve
+modinfo openvswitch
+modinfo ip_tables
+modinfo iptable_nat
+</code></pre>
+<span id="more"></span>
+<h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><ul>
+<li>如果内核版本为 3.10.0-862 内核 netfilter 模块存在 bug 会导致 Kube-OVN 内置负载均衡器无法工作，需要对内核升级，建议使用 CentOS 官方对应版本最新内核保证系统的安全。相关内核 bug 参考 Floating IPs broken after kernel upgrade to Centos&#x2F;RHEL 7.5 - DNAT not working。</li>
+<li>Rocky Linux 8.6 的内核 4.18.0-372.9.1.el8.x86_64 存在 TCP 通信问题 TCP connection failed in Rocky Linux 8.6，请升级内核至 4.18.0-372.13.1.el8_6.x86_64 或更高版本。</li>
+<li>如果内核版本为 4.4 则对应的内核 openvswitch 模块存在问题，建议升级或手动编译 openvswitch 新版本模块进行更新</li>
+<li>Geneve 隧道建立需要检查 IPv6，可通过 cat &#x2F;proc&#x2F;cmdline 检查内核启动参数， 相关内核 bug 请参考 Geneve tunnels don’t work when ipv6 is disabled。</li>
+</ul>
+<pre><code class="language-bash">#查看内核版本
+root@k8s-node2:~# uname -r
+6.8.0-52-generic
+</code></pre>
+<ul>
+<li>本文使用Ubuntu 22.04,内核版本6.8.0-52-generic</li>
+</ul>
+<h3 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h3><ul>
+<li>Kernel 启动需要开启 IPv6, 如果 kernel 启动参数包含 ipv6.disable&#x3D;1 需要将其设置为 0。</li>
+</ul>
+<pre><code class="language-bash">#查看是否开启ipv6
+root@k8s-master:~# cat /proc/sys/net/ipv6/conf/all/disable_ipv6
+0
+</code></pre>
+<ul>
+<li>kube-proxy 正常工作，Kube-OVN 可以通过 Service ClusterIP 访问到 kube-apiserver。</li>
+<li>确认 kubelet 配置参数开启了 CNI，并且配置在标准路径下, kubelet 启动时应包含如下参数 –network-plugin&#x3D;cni –cni-bin-dir&#x3D;&#x2F;opt&#x2F;cni&#x2F;bin –cni-conf-dir&#x3D;&#x2F;etc&#x2F;cni&#x2F;net.d。</li>
+<li>确认未安装其他网络插件，或者其他网络插件已经被清除，检查 &#x2F;etc&#x2F;cni&#x2F;net.d&#x2F; 路径下无其他网络插件配置文件。如果之前安装过其他网络插件，建议删除后重启机器清理残留网络资源。</li>
+</ul>
+<h4 id="清楚各节点-etc-cni-net-d-下的配置文件后一定重启服务器"><a href="#清楚各节点-etc-cni-net-d-下的配置文件后一定重启服务器" class="headerlink" title="清楚各节点&#x2F;etc&#x2F;cni&#x2F;net.d&#x2F;下的配置文件后一定重启服务器"></a>清楚各节点&#x2F;etc&#x2F;cni&#x2F;net.d&#x2F;下的配置文件后一定重启服务器</h4><h3 id="端口信息"><a href="#端口信息" class="headerlink" title="端口信息"></a>端口信息</h3><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>端口</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ovn-central</td>
+<td>6641&#x2F;tcp</td>
+<td>ovn nb db server 监听端口</td>
+</tr>
+<tr>
+<td>ovn-central</td>
+<td>6642&#x2F;tcp</td>
+<td>ovn sb db server 监听端口</td>
+</tr>
+<tr>
+<td>ovn-central</td>
+<td>6643&#x2F;tcp</td>
+<td>ovn northd server 监听端口</td>
+</tr>
+<tr>
+<td>ovn-central</td>
+<td>6644&#x2F;tcp</td>
+<td>ovn raft server 监听端口</td>
+</tr>
+<tr>
+<td>ovn-ic</td>
+<td>6645&#x2F;tcp</td>
+<td>ovn ic nb db server 监听端口</td>
+</tr>
+<tr>
+<td>ovn-ic</td>
+<td>6646&#x2F;tcp</td>
+<td>ovn ic sb db server 监听端口</td>
+</tr>
+<tr>
+<td>ovs-ovn</td>
+<td>Geneve 6081&#x2F;udp, STT 7471&#x2F;tcp, Vxlan 4789&#x2F;udp</td>
+<td>隧道端口</td>
+</tr>
+<tr>
+<td>kube-ovn-controller</td>
+<td>10660&#x2F;tcp</td>
+<td>监控监听端口</td>
+</tr>
+<tr>
+<td>kube-ovn-daemon</td>
+<td>10665&#x2F;tcp</td>
+<td>监控监听端口</td>
+</tr>
+<tr>
+<td>kube-ovn-monitor</td>
+<td>10661&#x2F;tcp</td>
+<td>监控监听端口</td>
+</tr>
+</tbody></table>
+<h2 id="一键安装"><a href="#一键安装" class="headerlink" title="一键安装"></a>一键安装</h2><ul>
+<li>参考<a target="_blank" rel="noopener" href="https://kubeovn.github.io/docs/stable/start/one-step-install/">官方文档</a></li>
+<li>修改配置时可能需要用到以下命令</li>
+</ul>
+<pre><code class="language-bash">#查看当前apiserver 的 service-cluster-ip-range
+grep -A 5 &quot;service-cluster-ip-range&quot; /etc/kubernetes/manifests/kube-apiserver.yaml
+</code></pre>
+
     </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
     
 </div>
 
@@ -354,6 +367,29 @@
             document.body.append(document.createRange().createContextualFragment(html));
         }
     </script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="argvchs/giscus-comments"
+    data-repo-id="R_kgDOI_uC-w"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOI_uC-84CUToF"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="https://static-argvchs.netlify.app/css/giscus.css"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
     
 </body>
 </html>
